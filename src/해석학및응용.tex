@@ -1,0 +1,52 @@
+\chapter{해석학 및 응용}
+
+% 단답형 질문은 쪽지, 복잡한 질문은 e-mail. (평일 9:00 ~ 17:00), 학번 이름 학과 분반 밝힐 것.
+% e-mail: kagness@kookmin.ac.kr
+% 40 40 과제 10 출석(호명) 10
+
+\section{1주차}
+
+\subsection{체의 공리}
+
+다음이 성립하는 집합 $\FF$를 체라고 한다.
+\begin{itemize}
+  \item 덧셈: 교환 법칙, 결합 법칙, $0$이 존재, 역원이 존재.
+  \item 곱셈: 교환 법칙, 결합 법칙, $1$이 존재, 역원이 존재.
+  \item 분배 법칙.
+\end{itemize}
+실수 집합 $\RR$은 체이다.
+
+$\RR$에는 다음 두 조건을 만족하는 $P(\neq 0)$가 존재한다.
+\subsection{순서의 공리}
+\begin{itemize}
+  \item 덧셈과 곱셈은 닫힘.
+  \item $a \in \RR$에 대해 다음 셋 중 단 하나만 성립. $a \in P, a = 0, -a \in P$.
+\end{itemize}
+순서가 있으니 $<, >, =$ 등을 사용할 수 있음.
+
+\begin{theorem}
+  \label{thm:acbc}
+  $\forall a, b, c \in \RR, a > b, c > 0 \implies ac > bc$.
+\end{theorem}
+
+\begin{proof}
+    $a - b > 0, c > 0$이므로, $ac - bc = (a-b)c > 0$. 따라서 $ac > bc$이다.
+\end{proof}
+
+\subsection{시작}
+$X$를 $\RR$의 공집합이 아닌 부분 집합이라 하자. 
+
+\begin{definition}
+  \label{def:bound}
+  $\forall x \in X, a \geq x$인 $a$가 존재 할 때, $X$를 
+  위로 유계(bounded above)라 하고, $a$를 $X$의 상계(upper bound)이라 한다.
+  $\forall x \in X, b \leq x$인 $b$가 존재 할 때, $X$를 
+  아래로 유계(bounded below)라 하고, $b$를 $X$의 하계(lower bound)이라 한다.
+\end{definition}
+
+\begin{definition}
+  \label{def:supremum}
+  $a$가 $X$의 상계이고, $b$가 $X$의 상계일 때, $a \neq b$라면, $a$를 $X$의 상한(supremum)
+  또는 (least upper bound)라 한다. 기호로는 $\sup X = a$로 나타낸다.
+\end{definition}
+$X = (-\infty, 10)$일 때, 최댓값은 없고, $\sup X = 10$이다.
