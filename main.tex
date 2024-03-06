@@ -8,7 +8,57 @@
 
 \begin{document}
 \tableofcontents
-\chapter{chapter 1 title}
-\input{이동통신보안}
-% \include{section 1-2}
-\end{document}
+
+\chapter{이동통신보안}
+
+\subsection*{1주차}
+
+암호화 기본 기법 네 가지. 이걸로 보안 시스템 구현 가능.
+\begin{itemize}
+\item 대칭키: $\alice: \ct = \enc(\key, \pt)$, $\alice \to \bob: \id(\alice), 
+    \ct$, $\bob: \pt = \dec(\key, \ct)$. $\id$는 그 사람을 식별하기 위함. 
+    공개키보다 빠르다. 블록 or 스트림 암호.
+    블록의 경우 운영모드가 있음. 전사공격 유일하게 허용. $O(2^{\klen})$. 
+    AES, SEED, ARIA, LEA. 키 분배 문제. 확장성 문제($x$명의 경우, $\binom{x}{2}$).
+    키 분배 문제: 키분배센터(KDC)라는 제 삼자 이용. KDC가 $\alice$와 $\bob$에게 $\key$
+    전달. 커버러스 통신이 이거 사용.
+    \begin{equation}
+      \begin{split}
+        \alice \to \carol&: \id(\alice), \id(\bob) \\
+        \carol \to \alice&: \ct_1 \samp \enc_{\key_{ac}}(\key_{ab}), 
+        \ct_2 \samp \enc_{\key_{bc}}(\key_{ab}) \\
+        \alice&: \key_{ab} \samp \dec_{\key_{ac}}(\ct_1), 
+        \ct \samp \enc_{\key_{ab}}(\pt) \\
+        \alice \to \bob&: \ct, \ct_2 \\
+        \bob&: \key_{ab} \samp \dec_{\key_{bc}}(\ct_2), 
+        \pt = \dec_{\key_{ab}}(\ct).
+      \end{split}
+    \end{equation}
+    이 과정의 문제점은, 키가 추가로 필요하다는 점. 추가로 필요한 키도 보호가 필요하다는 점.
+    이 문제를 공개키 암호가 해결할 수 있음.
+\item 공개키: 키가 두 개. 비밀키, 공개키. 둘은 수학적 연계.
+    $\bob \to \alice: \ct = \enc_{\pkey_{\alice}}(\pt), 
+    \alice: \pt = \dec_{\skey_{\alice}}(\ct)$.
+    내가 보냈음을 인증 가능. \memo{인증, 부인방지. 공개키를 조작할 수 있나?} 
+    $\bob \to \alice: \ct = \enc_{\skey_{\alice}}(\pt), 
+    \alice: \pt = \dec_{\pkey_{\alice}}(\ct)$.
+    이 둘을 합치면? 
+    % P -> L: C, S s.t. C = e(pk(L), Rec), S = e(sk(P), C)
+    % L: check C = d(pk(P), S) rec = d(sk(L), C)
+    % 실제로는 이렇게 하지는 않고, 전자서명을 사용한다. ... 왜?
+\item 전자서명
+\item 해시
+\end{itemize}
+
+
+\footnote{우리나라는 it 소비 강국. 해커의 공격이 많음.}
+
+\chapter{소프트웨어적 사고}
+
+
+
+\chapter{삶과 윤리}
+
+
+
+\end{document}\usepackage{mystyle}
