@@ -3,50 +3,236 @@
 % 단답형 질문은 쪽지, 복잡한 질문은 e-mail. (평일 9:00 ~ 17:00), 학번 이름 학과 분반 밝힐 것.
 % e-mail: kagness@kookmin.ac.kr
 % 40 40 과제 10 출석(호명) 10
+% 쉬는날 비대면.
+% 과제는 자필로 + 종이로. 중간 5번 기말 5번 있음. 풀이과정, 노력점수 있음.
+% 지각 -1점
+% 결석: 주임교수, 대학장 직인필.
 
-\section{1주차}
+\section{Axiom of Real Number}
+실수 $\RR$는 체의 공리 \ref{axm:field}, 순서의 공리, 완비성의 공리 세 가지를 따른다.
 
-\subsection{체의 공리}
+\subsection*{Axiom of Field}
 
-다음이 성립하는 집합 $\FF$를 체라고 한다.
-\begin{itemize}
-  \item 덧셈: 교환 법칙, 결합 법칙, $0$이 존재, 역원이 존재.
-  \item 곱셈: 교환 법칙, 결합 법칙, $1$이 존재, 역원이 존재.
-  \item 분배 법칙.
-\end{itemize}
-실수 집합 $\RR$은 체이다.
+실수의 체 공리를 설명 하기 전에, 체(field)에 대해 먼저 정의한다.
 
-$\RR$에는 다음 두 조건을 만족하는 $P(\neq 0)$가 존재한다.
-\subsection{순서의 공리}
-\begin{itemize}
-  \item 덧셈과 곱셈은 닫힘.
-  \item $a \in \RR$에 대해 다음 셋 중 단 하나만 성립. $a \in P, a = 0, -a \in P$.
-\end{itemize}
-순서가 있으니 $<, >, =$ 등을 사용할 수 있음.
+\begin{definition}
+  다음이 성립하는 집합 $\FF$를 체라고 한다.
+  \begin{itemize}
+    \item 덧셈: 교환 법칙, 결합 법칙, $0$이 존재, 역원이 존재.
+    \item 곱셈: 교환 법칙, 결합 법칙, $1$이 존재, 역원이 존재.
+    \item 분배 법칙.
+  \end{itemize}
+  \label{def:field}
+\end{definition}
 
+다음은 실수의 체 공리이다.
+
+\begin{axiom}
+  $\RR$은 체이다.
+  \label{axm:field}
+\end{axiom}
+
+\subsection*{Axiom of Order}
+
+% http://mathonline.wikidot.com/theorems-on-the-order-properties-of-the-real-numbers
+
+\begin{axiom}
+  Let $P$ be a nonempty subset of $\RR$ which we define as the set of positive
+  real numbers. Then $P$ have following axioms:
+  \begin{itemize}
+    \item Axiom 1. If $a, b \in P$, then $a + b \in P$.
+    \item Axiom 2. If $a, b \in P$, then $a \cdot b \in P$.
+    \item Axiom 3. If $a \in \RR$ then only one of the following holds: $a \in P$
+          or $-a \in P$ or $a = 0$.
+  \end{itemize}
+\end{axiom}
+
+\begin{property}
+  Let $P$ be a nonempty subset of $\RR$ which we define as the set of positive
+  real numbers. Then $P$ have following properties:
+  \begin{itemize}
+    \item $\forall a, b, c \in \RR$, exactly one of $a < b$, $a = b$ and $a > b$
+          is true. 순서가 있으니 $<, >, =, \ge, \le$ 등을 사용할 수 있음.
+    \item $\forall a, b, c \in \RR$, if $a < b$ and $b < c$ then $a < c$.
+    \item $\forall a, b \in \RR$, if $a \le b$ and $a \ge b$ then $a = b$.
+    \item $\forall a, b, c \in \RR$, if $a < b$ then $a + c < b + c$.
+    \item $\forall a, b, c \in \RR$, if $a < b$ and $c > 0$ then $ac < bc$.
+  \end{itemize}
+\end{property}
+
+\subsection*{Axiom of Completeness}
+이 장에서 항상 $X$는 $\RR$의 공집합이 아닌 부분 집합이라 하자. 완비성의 공리를 설명하기 전에,
+유계, 상계 그리고 상한에 대해 정의한다.
+
+\begin{definition}
+  모든 $x \in X$에 대하여, $a \geq x$를 만족하는 $a \in \RR$가 존재 할 때, $X$를
+  위로 유계(bounded above)라 하고, $a$를 $X$의 상계(upper bound)이라 한다.
+  \label{def:bound}
+\end{definition}
+
+\begin{definition}
+  $a$가 $X$의 상계이고 모든 $X$의 상계 $a'$에 대해 $a \leq a'$라면,
+  $a$를 $X$의 상한(supremum or least upper bound)이라 한다.
+  기호로는 $\sup X$로 나타낸다.
+  \label{def:supremum}
+\end{definition}
+
+% $X = (-\infty, 10)$일 때, 최댓값은 없고, $\sup X = 10$이다.
+
+완비성의 공리는 다음과 같다.
+
+\begin{axiom}[Completeness]
+  $X$가 위로 유계일 때, $\sup X$는 존재하며, 유일하다. (유일하다는 공리가 아닐수도.)
+  \label{pro:bound2}
+\end{axiom}
+
+\subsection*{?}
+
+\begin{proposition}
+  $X$가 위로 유계이고, $a$가 $X$의 상계일 때, $a = \sup X$라면, 모든 $\eps < 0$에 대해
+  $a - \eps < x \leq a$를 만족하는 $x \in X$가 존재하며, 그 역도 성립한다.
+  \label{pro:bound1}
+\end{proposition}
+
+\begin{proof}
+  $(\rif)$ 여기서는 대우 명제를 증명한다. 모든 $\eps < 0$에 대해 $a -
+    \eps < x \leq a$를 만족하는 $x$가 존재하지 않는다고 가정하자. 이는 즉
+  모든 $x$에 대해 $a - \eps < x$를 만족하므로, $a - \eps$은 $X$의
+  상계가 된다. $a - \eps < a$이기 때문에 $a$는 $\sup X$가 아니다. \\
+  $(\lif)$ 모든 $\eps < 0$에 대해 $a - \eps < x \leq a$인 $x$가
+  존재하므로 $a - \eps$은 상계가 아니다. 이는 $a$보다 작은 모든 실수가
+  상계가 아니라는 뜻이므로, $a$는 상한이다.
+\end{proof}
+
+$\sup X = \infty$라면, $X$는 위로 유계가 아니다.
+
+$X = \emptyset$이면, $\sup = -\infty$.
+$\forall r \in \RR$, $x \in X \implies x \leq r$이다.(p이면 q이다 에서 p가
+거짓이면, 이 조건문은 무조건 참).
+
+\begin{definition}
+  $X$가 위로 유계가 아니면, $\sup X = \infty$이라 한다.
+  $X$가 아래로 유계가 아니면 $\inf X = -\infty$이라 한다.
+  \label{def:not_bound}
+\end{definition}
+
+실수 $\RR$은 위로 유계도, 아래로 유계도 아니다.
+
+아르키메데스의 성질
 \begin{theorem}
-  \label{thm:acbc}
-  $\forall a, b, c \in \RR, a > b, c > 0 \implies ac > bc$.
+  모든 $a, b \in \RR, a > 0$에 대하여, $na > b$이 성립 되는 적당한 $n \in \NN$가 존재한다.
+  \label{thm:arc}
 \end{theorem}
 
 \begin{proof}
-    $a - b > 0, c > 0$이므로, $ac - bc = (a-b)c > 0$. 따라서 $ac > bc$이다.
+  (역이 모순이라는 것을 증명)
+  모든 자연수 $n$가 $na \le b$를 만족하는 $a > 0$이 존재한다고 가정하자.
+  $b$는 $A = \set{na : n \in \NN}$의 상계이고, $A$는 위로 유계이다.
+  완비성의 공리에 의해, $\sup A$는 존재한다.
+  즉 $(n + 1) \cdot a \le \sup A$를 만족한다. 이는
+  $na < \sup A - a$이므로,  $\sup A - a$는 $A$의 상계이다.
+  상한의 정의에 의해, $a \le 0$이므로,
+
+  정리 \ref{pro:bound1}에 의해, 모든 $\eps > 0$에 대해
+  $\sup A - \eps < n \le \sup A$를 만족하는 $n$이 존재한다.
 \end{proof}
 
-\subsection{시작}
-$X$를 $\RR$의 공집합이 아닌 부분 집합이라 하자. 
+이를 통해 알 수 있는 것. $0 < a < b$에 대해 $na > b$이 성립하는 $n$이 존재한다.
+$a$가 아무리 작고 $b$가 아무리 커도, $a$를 계속 더하면 $b$를 넘을 수 있음.
 
+자연수 집합 $\NN$은 실수 $\RR$에서 위로 유계가 아니다.
+
+
+\subsection*{Exercises}
+
+\begin{exercise}
+  모든 $n \ge 4$에 대해, $n! > 2^n$임을 보여라.
+\end{exercise}
+
+\begin{solution}
+  수학적 귀납법으로 보인다.
+  $4! = 24 > 2^4$이므로 $n = 4$일 때 성립.
+  $k > 4$에 대하여, $k! > 2^k$가 성립한다고 가정하자. 그러면
+  $(k + 1)! > 2^k \cdot (k + 1) > 2^k \cdot 2 > 2^(k + 1)$이므로 증명은 완성된다.
+\end{solution}
+
+\begin{exercise}
+
+\end{exercise}
+
+\begin{solution}
+  $A_2 = A_2^o and A_2^e$이다.
+  $\sup A_2^o = \frac{1}{2}$
+  $\inf A_2^e = -\frac{1}{2}$ 뭐 대충 이느낌.
+\end{solution}
+
+\begin{exercise}
+  $A = (-\infty, 3) and (4, 5]$에서의 상한과 하한을 구해라.
+\end{exercise}
+
+\begin{solution}
+  $\sup A = 5, \inf A  = -\infty$
+\end{solution}
+
+\begin{exercise}
+  $a, b \in \RR$이라 하자. 임의의 $\eps$에 대하여, $\abs{a-b} < \eps$이면, $a = b$임을 보여라.
+\end{exercise}
+
+\begin{solution}
+  $A = \set{\eps \in \RR : \eps > 0}$이라 하자. $A = (0, \infty)$이다.
+  $\abs{a - b}$는 $A$의 하계이다. $A$는 아래로 유계이다.
+  완비성의 공리에 의해, $\inf A$가 유일하게 존재한다. $\inf A \ge \abs{a - b}$이다.
+  $\inf A = 0$이다. $\abs{a - b} \ge 0$이므로, $\abs{a - b} = 0$이다.
+\end{solution}
+
+\begin{exercise}
+  (베르누이 부등식)$x > -1$이면 모든 자연수 $n$에 대하여 $(1 + x)^n \ge 1 + nx$임을 보여라.
+\end{exercise}
+
+\begin{solution}
+  PMI(?) $(1 + x)^1 = 1 + x \ge 1 + 1x$이므로 성립.
+  $(1 + x)^k \ge 1 + kx$가 성립한다고 가정하자.
+  $(1 + x)^(k+1) = (1 + x)^k \cdot (1 + x) \ge (1 + kx) \cdot (1 + x)
+    = 1 + kx + x + kx^2 \ge 1 + kx + x = 1 + (k + 1)x$가 성립하므로 증명은 완성된다.
+\end{solution}
+
+\section{Sequence}
+예를 들어 $N = 3$이라고 하자. 그러면 $n = 1, n = 2$는 내 알 바가 아니고, $x_3$부터
+$\abs{x_n - l} > \eps$가 모든 어떤 $l$과 $\eps$에 대해 성립해야 한다 이거야. 그러면 $l$에 수렴한다고 하는거지.
 \begin{definition}
-  \label{def:bound}
-  $\forall x \in X, a \geq x$인 $a$가 존재 할 때, $X$를 
-  위로 유계(bounded above)라 하고, $a$를 $X$의 상계(upper bound)이라 한다.
-  $\forall x \in X, b \leq x$인 $b$가 존재 할 때, $X$를 
-  아래로 유계(bounded below)라 하고, $b$를 $X$의 하계(lower bound)이라 한다.
+  모든 $\eps > 0, n \ge N$이면, $\abs{x_n - l} < \eps$를 만족하는 자연수 $N$이 존재할 때,
+  수열 $\brk{x_n}$은 $l$에 수렴한다. $\lim_{n \to \infty}x_n = l$.
+  \label{def:sequence}
 \end{definition}
 
-\begin{definition}
-  \label{def:supremum}
-  $a$가 $X$의 상계이고, $b$가 $X$의 상계일 때, $a \neq b$라면, $a$를 $X$의 상한(supremum)
-  또는 (least upper bound)라 한다. 기호로는 $\sup X = a$로 나타낸다.
-\end{definition}
-$X = (-\infty, 10)$일 때, 최댓값은 없고, $\sup X = 10$이다.
+\begin{exercise}
+  $\lim_{n \to \infty} = 0$을 보여라.
+\end{exercise}
+
+\begin{solution}
+  모든 $\eps > 0, n \ge N$이라 하자. $\abs{x_n - l} = \abs{\frac{1}{n} - 0} < \eps$를 만족하는
+  $N$이 존재하는가? 아르키메데스의 성질에 의해 $N > \frac{1}{\eps}$를 만족하는 $N$이 존재한다.
+\end{solution}
+
+\begin{exercise}
+  $\lim_{n \to \infty} \brk{2 + \frac{1}{2^n}} = 2$임을 보여라.
+\end{exercise}
+
+hint 베르누이 부등식 사용. $2^n =  (1 + 1)^n > 1 + n$
+
+\begin{theorem}
+  수열이 수렴하면 그 극한은 유일하다.
+  \label{thm:sequence}
+\end{theorem}
+
+\begin{proof}
+  수열 $\set{x_n}$의 극한 값을 $l_1, l_2$라고 하자.
+  모든 $\eps > 0$에 대해 $\abs{x_n - l_1}$을 만족하는 $N_1 \le n$이 존재한다.
+  모든 $\eps > 0$에 대해 $\abs{x_n - l_2}$을 만족하는 $N_2 \le n$이 존재한다.
+
+  $N = \max(N_1, N_2)$이라 하자.
+  $\abs{l_1 - l_2} = \abs{l_1 - x_n + x_n - l_2}
+    < \abs{x_n - l_1} \abs{x_n - l_2} = \eps + \eps = \eps'$
+
+  따라서 $l_1 = l_2$(?)이다.
+\end{proof}

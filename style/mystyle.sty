@@ -18,6 +18,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{chngcntr} % 넘버링을 바꿀수 있게 해주는 패키지
+\usepackage[printsolution=true]{exercises}
 
 % ******************************** ? ******************************** %
 % ?
@@ -52,6 +53,8 @@
 % [section]: 섹션 단위로 번호를 매김
 % [theorem]: 정리 단위로 번호를 매김
 \theoremstyle{definition}
+\newtheorem{axiom}{Axiom}[section]
+\newtheorem{property}{Property}[section]  % 명제
 \newtheorem{definition}{Definition}[section]    % 정의
 \newtheorem{theorem}{Theorem}[section]          % 정리
 \newtheorem{lemma}{Lemma}[section]              % 보조정리
@@ -64,8 +67,8 @@
 \newcommand{\samp}{\leftarrow}
 \newcommand{\unisamp}{\overset{\$}\leftarrow}
 \newcommand{\issame}{\overset{?}{=}}
-\newcommand{\rif}{\rightarrow}
-\newcommand{\lif}{\leftarrow}
+\newcommand{\rif}{\Rightarrow}
+\newcommand{\lif}{\Leftarrow}
 \newcommand{\xor}{\oplus}
 \newcommand{\err}{\perp}
 \renewcommand{\and}{\wedge}
@@ -90,7 +93,11 @@
 \renewcommand{\tt}[1]{\text{ #1 }}
 \renewcommand{\newline}{{\color{white}-}}
 \renewcommand{\emph}[1]{\ul{\textbf{#1}}}
+\renewcommand{\st}{\text{ s.t. }}
 
 % set
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\FF}{\mathbb{F}}
+\newcommand{\NN}{\mathbb{N}}
+
+\newcommand{\eps}{\varepsilon}

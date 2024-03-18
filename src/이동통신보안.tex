@@ -1,43 +1,168 @@
-\section{이동통신보안}
+\chapter{이동 통신 보안}
 
-\subsection*{1주차}
+\section{1 ~ 2 주차}
 
-암호화 기본 기법 네 가지. 이걸로 보안 시스템 구현 가능.
+암호화의 기본 기법으로 대칭 키 암호화, 비대칭 키 암호화, 전자 서명 그리고 해시가 있다.
+이를 바탕으로 보안 시스템을 구현할 수 있다.
+
+\subsection*{대칭 키}
+
+대칭 키 암호는 암호화 키와 복호화 키가 같은 암호 알고리즘을 뜻한다. 따라서
+송신자와 수신자는 서로 같은 키를 공유해야 한다. 대칭 키 암호 통신 과정은
+\ref{equ:sym}과 같다.
+\begin{equation}
+  \begin{split}
+    \alice&: \ct = \enc(\key, \pt) \\
+    \alice \to \bob&: \id(\alice), \ct \\
+    \bob&: \pt = \dec(\key, \ct)
+  \end{split}
+  \label{equ:sym}
+\end{equation}
+
+블록 암호와 스트림 암호가 대칭 키 암호에 속한다. 대표적인 대칭 키 암호에는 AES,
+SEED, ARIA, LEA가 있다. 대칭 키 암호는 공개 키 암호보다 빠르기에 대용량 데이터를
+암호화하는데 이점이 있으나, 다음과 같은 키 분배 문제를 가지고 있다는 단점이
+있다.
 \begin{itemize}
-  \item 대칭키: $\alice: \ct = \enc(\key, \pt)$, $\alice \to \bob: \id(\alice), 
-        \ct$, $\bob: \pt = \dec(\key, \ct)$. $\id$는 그 사람을 식별하기 위함. 
-        공개키보다 빠르다. 블록 or 스트림 암호.
-        블록의 경우 운영모드가 있음. 전사공격 유일하게 허용. $O(2^{\klen})$. 
-        AES, SEED, ARIA, LEA. 키 분배 문제. 확장성 문제($x$명의 경우, $\binom{x}{2}$).
-        키 분배 문제: 키분배센터(KDC)라는 제 삼자 이용. KDC가 $\alice$와 $\bob$에게 $\key$
-        전달. 커버러스 통신이 이거 사용.
-        \begin{equation}
-          \begin{split}
-            \alice \to \carol&: \id(\alice), \id(\bob) \\
-            \carol \to \alice&: \ct_1 \samp \enc_{\key_{ac}}(\key_{ab}), 
-            \ct_2 \samp \enc_{\key_{bc}}(\key_{ab}) \\
-            \alice&: \key_{ab} \samp \dec_{\key_{ac}}(\ct_1), 
-            \ct \samp \enc_{\key_{ab}}(\pt) \\
-            \alice \to \bob&: \ct, \ct_2 \\
-            \bob&: \key_{ab} \samp \dec_{\key_{bc}}(\ct_2), 
-            \pt = \dec_{\key_{ab}}(\ct).
-          \end{split}
-        \end{equation}
-        이 과정의 문제점은, 키가 추가로 필요하다는 점. 추가로 필요한 키도 보호가 필요하다는 점.
-        이 문제를 공개키 암호가 해결할 수 있음.
-  \item 공개키: 키가 두 개. 비밀키, 공개키. 둘은 수학적 연계.
-        $\bob \to \alice: \ct = \enc_{\pkey_{\alice}}(\pt), 
-        \alice: \pt = \dec_{\skey_{\alice}}(\ct)$.
-        내가 보냈음을 인증 가능. \memo{인증, 부인방지. 공개키를 조작할 수 있나?} 
-        $\bob \to \alice: \ct = \enc_{\skey_{\alice}}(\pt), 
-        \alice: \pt = \dec_{\pkey_{\alice}}(\ct)$.
-        이 둘을 합치면? 
-        % P -> L: C, S s.t. C = e(pk(L), Rec), S = e(sk(P), C)
-        % L: check C = d(pk(P), S) rec = d(sk(L), C)
-        % 실제로는 이렇게 하지는 않고, 전자서명을 사용한다. ... 왜?
-  \item 전자서명
-  \item 해시
+  \item 같은 키를 어떻게 공유할 것인가? 공유 도중에 도청자가 키를 탈취할 수
+        있다.
+  \item 많은 사람들이 통신을 할 경우, 사람마다 보유해야 하는 키가 많아진다.
+        ($x$명의 경우, $\binom{x}{2}$)
 \end{itemize}
 
+키 분배 문제를 해결하기 위한 시도로 키 분배 센터(KDC)라는 신뢰가능한 제 3자를
+이용할 수 있다. 커버러스라고 불리는 통신이 이를 사용한다. KDC를 이용한 통신
+과정은 \ref{equ:kdc}와 같다. 그러나 이 또한 근본적으로 키 분배 문제를 해결하지
+못한다.
+\begin{equation}
+  \begin{split}
+    \alice \to \carol&: \id(\alice), \id(\bob) \\
+    \carol \to \alice&: \ct_1 \samp \enc_{\key_{ac}}(\key_{ab}),
+    \ct_2 \samp \enc_{\key_{bc}}(\key_{ab}) \\
+    \alice&: \key_{ab} \samp \dec_{\key_{ac}}(\ct_1),
+    \ct \samp \enc_{\key_{ab}}(\pt) \\
+    \alice \to \bob&: \ct, \ct_2 \\
+    \bob&: \key_{ab} \samp \dec_{\key_{bc}}(\ct_2),
+    \pt = \dec_{\key_{ab}}(\ct).
+  \end{split}
+  \label{equ:kdc}
+\end{equation}
 
-\footnote{우리나라는 it 소비 강국. 해커의 공격이 많음.}
+\subsection*{비대칭 키}
+
+비대칭 키(혹은 공개 키로도 불림)는 대칭 키 암호와 다르게 암호화 키(공개 키)와
+복호화 키(비밀 키)가 다른 암호 알고리즘을 뜻한다. 두 키는 서로 수학적으로
+연계되어, 하나의 키로 암호화 되었다면, 다른 하나의 키로만 복호화 할 수 있다.
+통신 과정은 \ref{equ:asy}와 같다. 비대칭 키 암호의 단점은 대칭 키 암호보다
+느리기 때문에 작은 양의 데이터를 처리할 때 사용한다.
+\begin{equation}
+  \begin{split}
+    \bob \to \alice&: \ct = \enc_{\pkey_{\alice}}(\pt) \\
+    \alice&: \pt = \dec_{\skey_{\alice}}(\ct)
+  \end{split}
+  \label{equ:asy}
+\end{equation}
+
+공개 키 암호의 장점은 송신 시 자신이 통신하기로 한 송신자인지를 \ref{equ:auth}와 같이 인증할 수 있다.
+\begin{equation}
+  \begin{split}
+    \bob \to \alice&: \ct = \enc_{\skey_{\alice}}(\pt) \\
+    \alice&: \pt = \dec_{\pkey_{\alice}}(\ct)
+  \end{split}
+  \label{equ:auth}
+\end{equation}
+
+일반적으로, 대용량의 데이터를 암호화하여 송신하고 싶을 때, 비대칭 키 암호를
+이용하여 대칭 키를 암호화하여 공유하고, 대칭 키를 이용하여 데이터를 암호화하는
+하이브리드 기법을 이용한다. 통신 과정은 \ref{equ:hybrid}와 같다.
+\begin{equation}
+  \begin{split}
+    a : kab \\
+    a : c_1 = e(kab, M) \\
+    a : c_2 = e(pk_b, k_ab) \\
+    a to b : c_1, c_2 \\
+    b : k_ab = d(sk_b, c_2) \\
+    b : m = d(k_ab, c_1)
+  \end{split}
+  \label{equ:hybrid}
+\end{equation}
+
+암복호화, 전자서명(DSS), 키교환(DH). RSA, ECC는 전부 가능
+RSA는 데탑에서는 사용할만한데...스마트폰이나 iot에서 사용할 때 문제가 생김
+오버헤드가 너무 커. ECC는 이걸 해결해. TLS는 예전에는 RSA를 쓰다가 ECC로 바꿈.
+
+\subsection*{해시와 전자서명}
+
+해시함수는 임의 길이의 데이터를 고정 길이 데이터로 변환하는 함수이다. 일방향
+함수이며, 해시값은 통계적으로 유일. 해시함수는 데이터의 무결성(혹은 메시지 인증)을 검증하는데
+활용됨.
+
+\begin{equation}
+  \begin{split}
+    \alice &: \sig = \enc(\skey_{\alice}, \hash(\pt)), \ct = \enc(\pkey_{\bob}, \pt) \\
+    \alice \to \bob &: \\
+    \bob &: m = d(sk_b, c), check h(m) = d(pk_a, ehash)
+  \end{split}
+\end{equation}
+
+% 종단간 보안이란?
+
+수동적인 공격자는 통신자 간에 전달되는 데이터를 도청만 하는 공격자를 말한다.
+도청을 막기위해 기밀성이 필요하며, 통신자들은 공격자가 도청을 하는지 안하는지 알
+수 없다. 반면에 능동적인 공격자는 도청뿐만 아니라 데이터를 직접 건드리는
+공격자를 말한다.
+
+mac은 공개키 기반이 아니라는 장점이 있다. 두 대상이 비밀키를 공유하고 있을 때,
+메시지를 보낼 때 태그도 함께 보냄. 해시값을 대칭 키로 암호화.
+\begin{equation}
+  \begin{split}
+    \alice &: \mac = \enc(\key_{\alice \bob}, \hash(\pt)) \\
+    \alice \to \bob &: \pt, \mac \\
+    \bob &: \text{check } \dec(\key_{\alice \bob}, \mac) \issame \hash(\pt)
+  \end{split}
+\end{equation}
+
+암호 기술 없이 사용하는 mac도 있음. 아래 참고. $s_{\alice \bob}$은 사전에 공유한 비밀 값.
+최근에는 hmac을 사용함.
+\begin{equation}
+  \begin{split}
+    \alice &: \mac = \hash(\pt \parallel s_{\alice \bob}) \\
+    \alice \to \bob &: \pt, \mac \\
+    \bob &: \text{check } \hash(\pt \parallel s_{\alice \bob}) \issame \mac
+  \end{split}
+\end{equation}
+
+mac는 부인방지(자신이 보낸게 아니라고 시치미 때는 것을 막는 것)가 안됨. 왜냐하면
+MAC값은 $\alice$뿐만 아니라 $\bob$도 만들 수 있기 때문. 이를 해결할 수 있는
+방법으로 전사서명이 있음. 전자 서명은 인증에 추가로 부인방지까지 가능함.
+전자서명 과정은 다음과 같음.
+\begin{equation}
+  \begin{split}
+    \alice &: \text{generate } \key_{\alice \bob} \\
+    \alice &: \sig = \enc(\skey_{\alice}, \hash(\pt)), \ct_{\pt} = \enc(\key_{\alice \bob}, \pt),
+    \ct_{\key} = \enc(\pkey_{\bob}, \key_{\alice \bob}) \\
+    \alice \to \bob &: \ct_{\pt}, \ct_{\key}, \sig \\
+    \bob &: \key_{\alice \bob} = \dec(\skey_{\bob}, \ct_{\key}) \\
+    \bob &: \pt = \dec(\key_{\alice \bob}, \ct_{\pt}) \\
+    \bob &: \text{check } \hash(\pt) \issame \dec(\pkey_{\alice}, \sig)
+  \end{split}
+\end{equation}
+
+중간자 공격, 전달하는 메시지를 위조. 공개키를 자신의 공개키로 위조. 서명도
+자신의 개인키로 서명. 그러면 받는 사람은 서명 검증 단계에서 valid를 얻음. 문제:
+이 공개키가 진짜로 내가 통신하고자 하는 사람의 것인가? 해결시도: CA라고 하는
+신뢰하는 제 3자에게 공개 키를 요구하는 방법. -> 근본적인 해결 X 이것도 통신중에
+바뀔 수 있음.
+
+해결방법: 이 공개키는 내거라는 인증서를 만든다. 신뢰할 수 있는 제 3자가 인증서
+발행. 인증서에는 크게 소유자의 ID, 공개 키, 그리고 발금자의 서명(위조 방지)가
+있다.
+
+안전한 공개키 암호 기술을 사용하기 위해 공개키 기반 구조(PKI, 인증서를 사용하는
+인프라)가 필요.
+
+CA(certification authority): 인증기관. -> 인증서 관리.
+RA(registration authority): 등록기관. -> 사용자 신분 확인.
+
+Y가 발행한 X의 인증서 Y<<X>>.
+
