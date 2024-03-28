@@ -196,43 +196,368 @@ $a$가 아무리 작고 $b$가 아무리 커도, $a$를 계속 더하면 $b$를 
     = 1 + kx + x + kx^2 \ge 1 + kx + x = 1 + (k + 1)x$가 성립하므로 증명은 완성된다.
 \end{solution}
 
+%******************************************************************************%
+\newpage
 \section{Sequence}
-예를 들어 $N = 3$이라고 하자. 그러면 $n = 1, n = 2$는 내 알 바가 아니고, $x_3$부터
-$\abs{x_n - l} > \eps$가 모든 어떤 $l$과 $\eps$에 대해 성립해야 한다 이거야. 그러면 $l$에 수렴한다고 하는거지.
+
 \begin{definition}
-  모든 $\eps > 0, n \ge N$이면, $\abs{x_n - l} < \eps$를 만족하는 자연수 $N$이 존재할 때,
-  수열 $\brk{x_n}$은 $l$에 수렴한다. $\lim_{n \to \infty}x_n = l$.
-  \label{def:sequence}
+  \label{def:limit}
+  We call $l$ the \emph{limit} of the sequence $\set{x_n}$, which is written
+  $x_n \to l$, if the following condition holds: For each real number $\eps > 0$,
+  there exists a natural number $N$ such that, for every natural number $n \ge
+    N$, we have $\abs{x_n - l} < \eps$. The sequence $\set{x_n}$ is said to
+  \emph{converge} to the limit $l$.
 \end{definition}
 
-\begin{exercise}
-  $\lim_{n \to \infty} = 0$을 보여라.
-\end{exercise}
-
-\begin{solution}
-  모든 $\eps > 0, n \ge N$이라 하자. $\abs{x_n - l} = \abs{\frac{1}{n} - 0} < \eps$를 만족하는
-  $N$이 존재하는가? 아르키메데스의 성질에 의해 $N > \frac{1}{\eps}$를 만족하는 $N$이 존재한다.
-\end{solution}
-
-\begin{exercise}
-  $\lim_{n \to \infty} \brk{2 + \frac{1}{2^n}} = 2$임을 보여라.
-\end{exercise}
-
-hint 베르누이 부등식 사용. $2^n =  (1 + 1)^n > 1 + n$
+% 예를 들어, $x_n = \frac{1}{n}$이라고 할 때, 아르키메데스의 성질에 의해 $x_n \to 0$이다.
+% $x_n = 2 + \frac{1}{2^n}$이라고 할 때, 베르누이 부등식을 사용하여, $x_n \to 2$임을 알 수 있다.
 
 \begin{theorem}
-  수열이 수렴하면 그 극한은 유일하다.
-  \label{thm:sequence}
+  \label{thm:limit_unique}
+  If the limit of a sequence exists then it is unique.
 \end{theorem}
 
 \begin{proof}
-  수열 $\set{x_n}$의 극한 값을 $l_1, l_2$라고 하자.
-  모든 $\eps > 0$에 대해 $\abs{x_n - l_1}$을 만족하는 $N_1 \le n$이 존재한다.
-  모든 $\eps > 0$에 대해 $\abs{x_n - l_2}$을 만족하는 $N_2 \le n$이 존재한다.
+  Let $l_1, l_2$ are limit of the sequence $\set{x_n}$. Then we have
+  \begin{equation}
+    \begin{split}
+      &\forall \eps > 0, \exists N_1:
+      \forall n \ge N_1, \abs{x_n - l_1} < \frac{\eps}{2} \\
+      &\forall \eps > 0, \exists N_2:
+      \forall n \ge N_2, \abs{x_n - l_1} < \frac{\eps}{2}.
+    \end{split}
+  \end{equation}
 
-  $N = \max(N_1, N_2)$이라 하자.
-  $\abs{l_1 - l_2} = \abs{l_1 - x_n + x_n - l_2}
-    < \abs{x_n - l_1} \abs{x_n - l_2} = \eps + \eps = \eps'$
+  Let $N = \max(N_1, N_2)$. Then we have
+  \begin{equation}
+    \begin{split}
+      \forall n \ge N, \abs{x_n - l_1} < \frac{\eps}{2} \\
+      \forall n \ge N, \abs{x_n - l_2} < \frac{\eps}{2}.
+    \end{split}
+  \end{equation}
 
-  따라서 $l_1 = l_2$(?)이다.
+  Now we completes the proof by following.
+  \begin{equation}
+    \abs{l_1 - l_2}
+    = \abs{l_1 - x_n + x_n - l_2}
+    \le \abs{x_n - l_1} + \abs{x_n - l_2}
+    < \frac{\eps}{2} + \frac{\eps}{2} = \eps
+  \end{equation}
+\end{proof}
+
+% \footnote{역은 성립하지 않는다. $\set{(-1)^n}$가 그 예시이다.}
+
+\begin{theorem}
+  \label{thm:limit_bound}
+  If the limit of a sequence exists then the sequence is bounded.
+\end{theorem}
+
+\begin{proof}
+  Let $l_1$ is limit of the sequence $\set{x_n}$. Then we have
+  \begin{equation}
+    \forall \eps > 0, \exists N: \forall n \ge N, \abs{x_n - l} < \eps.
+  \end{equation}
+
+  It follows that
+  \begin{equation}
+    \abs{x_n} = \abs{x_n - l + l} \le \abs{x_n - l} + \abs{l} < \eps + \abs{l}.
+  \end{equation}
+
+  Let $M = \max (x_1, \cdots, x_{N-1})$. Then we completes the proof by
+  following.
+  \begin{equation}
+    \forall n, x_n \le \max (M, \eps + \abs{l}).
+  \end{equation}
+\end{proof}
+
+% \begin{proposition}
+%   $x_n$이 유계수열이고 $y_n$이 0으로 수렴하면, 수열 $x_n y_n$은 0으로 수렴한다.
+% \end{proposition}
+
+% \begin{proof}
+%   모든 $n \in NN$에 대해 $\abs{x_n} \le M$인 $M$이 존재한다. 모든 $\eps > 0, n
+%     \in \NN$에 대해 $n \ge N$을 만족하는 $N$이 존재하면, $\abs{y_n - 0} <
+%     \frac{\eps}{M}$이다.
+
+%   다음으로 증명은 완성된다.
+%   $\abs{x_ny_n - 0} = \abs{x_ny_n} < M \cdot \frac{\eps}{M} < \eps$.
+% \end{proof}
+
+% 과제 1번.
+
+% \begin{proof}
+%   for all $\eps > 0$, and for all $n \in \NN$, exist $N$ s.t. $n \ge N$ and
+%   $\abs{\frac{1}{n^2 + 1} - 0} < \eps$.
+
+%   $n^2 > n^2 > N^2 \implies \frac{1}{n^2 + 1} < \frac{1}{N^2} = \eps$
+% \end{proof}
+
+\begin{theorem}[Squeeze theorem]
+  \label{thm:limit_squeeze}
+  Let $x_n \to l, y_n \to l$. Then
+  \begin{equation}
+    \forall n, x_n \le z_n \le y_n \implies z_n \to l.
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Since $x_n \to l, y_n \to l$, we have
+  \begin{equation}
+    \begin{split}
+      \forall \eps > 0, \exists N_x: \forall n \ge N_x, -\eps < x_n - l < \eps \\
+      \forall \eps > 0, \exists N_y: \forall n \ge N_y, -\eps < y_n - l < \eps.
+    \end{split}
+  \end{equation}
+
+  Let $N = \max(N_x, N_y)$. since $x_n \le z_n \le y_n$, we completes the proof
+  by following
+  \begin{equation}
+    \forall \eps > 0, n \ge N, -\eps < x_n - l \le z_n - l \le y_n - l < \eps.
+  \end{equation}
+\end{proof}
+
+% $z_n = \sin / n \to 0$.
+
+% 증가 수열, 감소 수열, 순증가 수열, 순감소 수열, 단조수열.
+
+\subsection{Monotone Sequences}
+
+\begin{definition}
+  \label{def:mono}
+  the squence $\set{x_n}$ is \emph{monotone increasing sequence} if $\forall n,
+    x_n \le x_{n+1}$.
+\end{definition}
+
+\begin{lemma}
+  If a sequence is increasing and bounded above, then its supremum is the limit.
+  \label{lem:mono_limit_1}
+\end{lemma}
+
+\begin{proof}
+  Let $x := \sup{\set{x_n}}$.
+\end{proof}
+
+\begin{lemma}
+  If a sequence is decreasing and bounded below, then its infimum is the limit.
+  \label{lem:mono_limit_2}
+\end{lemma}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}[Monotone convergence theorem, MCT]
+  If a sequence is bounded and monotone, then it converges.
+  \label{thm:mono_limit}
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+%***%
+\subsection{Subsequences}
+
+\begin{definition}
+  $\set{x_{n_k}}$ is a \emph{subsequence} of $\set{x_n}$ if $\set{n_k}$
+  is increasing sequence.
+  \label{def:sub}
+\end{definition}
+
+\begin{theorem}
+  If a sequence $\set{x_n}$ has a limit $l$ then all subsequence
+  $\set{x_{n_k}}$ of $\set{x_n}$ also have a limit $l$.
+  \label{thm:sub_limit}
+\end{theorem}
+
+\begin{proof}
+  It is clear that $n_1 \ge 1$. Suppose that $n_k
+    \ge k$. Since $n_k$ is increasing sequence, we have $n_{k+1} > n_k \ge k$. It
+  follows that $n_{k+1} \ge k + 1$ and we have
+  \begin{equation}
+    n_k \ge k.
+  \end{equation}
+
+  Let $x_n \to l$. We completes the proof by following.
+  \begin{equation}
+    \forall \eps > 0, \exists k: \forall n_k \ge k, \abs{x_{n_k} - l} < \eps.
+  \end{equation}
+\end{proof}
+
+
+\subsection{Nested Sequences}
+
+\begin{definition}
+  Let $I_n = [a_n, b_n]$, where $\abs{I_n} = b_n - a_n$ denotes the
+  \emph{length} of such an interval. One can call $I_n$ a sequence of nested
+  intervals, if
+  \begin{equation}
+    \begin{split}
+      \forall n, I_{n + 1} < I_n,
+    \end{split}
+  \end{equation}
+  \label{def:nest}
+\end{definition}
+
+\begin{theorem} [Nested intervals theorem]
+  Let $I_n = [a_n, b_n]$ is nested. If $(b_n - a_n) \to 0$, then $\exists! x \in
+    \RR$ such that $x \in I_n$.
+  \label{thm:nest_int}
+\end{theorem}
+
+\begin{proof}
+  First we prove existence. Note that $a_n$ is bounded. By MCT, $a_n \to \sup
+    A$. Let $x = \sup A$. Since $b_n$ is upper bound, $a_n \le x \le b_n$. then $x
+    \in I_n$. Now we prove uniqueness. Assume that $y \in I_n$. then $a_n \le y
+    \le b_n$. It follows that $0 \le y - a_n \le b_n - a_n$. By squeeze theorem,
+  $y - a_n \to 0$. It follows that $a_n \to y = x$.
+\end{proof}
+
+\begin{theorem} [Bolzano-Weierstrass theorem]
+  bounded sequence has a convergent subsequence.
+  \label{thm:nest_bol}
+\end{theorem}
+
+\begin{proof}
+  Let $\set{x_n}$ is a bounded sequence. Then we have
+  \begin{equation}
+    \forall n, \exists M > 0: -M \le x_n \le M.
+  \end{equation}
+
+  Let $I_1 = [0, M], I_n = [\frac{(2^n - 1)M}{2^n}, M]$. Since $\forall k, I_k
+    \supset I_{k + 1}$, $I_n$ is nested. By nested intervals theorem,
+  $\abs{x_{n_k} - x} < \frac{M}{2^{n-1}}$.
+\end{proof}
+
+
+\subsection{Cauchy Sequences}
+
+\begin{definition}
+  a sequence $\set{x_n}$ is \emph{Cauchy sequence} if
+  \begin{equation}
+    \forall \eps > 0, \exists N: \forall m > n \ge N, \abs{x_m - x_n} < \eps.
+  \end{equation}
+  \label{def:cauchy}
+\end{definition}
+
+\begin{theorem}
+  if a sequence converges, then it is cauchy sequence.
+  \label{thm:cauchy_conv}
+\end{theorem}
+
+\begin{proof}
+  Let $x_n \to l$. Then
+  \begin{equation}
+    \begin{split}
+      \forall \eps > 0, \exists N: \forall n \ge N, 
+      \abs{x_n - l} < \frac{\eps}{2}, \\
+      \forall \eps > 0, \exists N: \forall m \ge N, 
+      \abs{x_n - l} < \frac{\eps}{2}.
+    \end{split}
+  \end{equation}
+
+  Let $m > n$. Then
+  \begin{equation}
+    \abs{x_m - x_n}
+    =   \abs{x_m - l + l - x_n}
+    \ge \abs{x_m - l} + \abs{x_n - l}
+    <   \frac{\eps}{2} + \frac{\eps}{2}.
+  \end{equation}
+\end{proof}
+
+\begin{theorem}
+  A cauthy sequence is bounded.
+  \label{thm:cauchy_bound}
+\end{theorem}
+
+\begin{proof}
+  Let $x_n$ is a cauchy sequence. Then
+  \begin{equation}
+    \exists N: \forall m > n \ge N, \abs{x_m - x_n} < 1.
+  \end{equation}
+
+  Let $n < N$. Then
+  \begin{equation}
+    \abs{x_n} < \max (\abs{x_1}, \cdots, \abs{x_{N-1}}).
+  \end{equation}
+
+  Let $n \ge N$. Then
+  \begin{equation}
+    \abs{x_n} 
+    =   \abs{x_n - x_N + x_N} 
+    \le \abs{x_n - x_N} + \abs{x_N}
+    <   1 + \abs{x_N}.
+  \end{equation}
+
+  Let $M = \max (\abs{x_1}, \cdots, \abs{x_{N-1}, 1 - \abs{x_N}})$. Then
+  $\exists M: \abs{x_n} \ge M$. This completes the proof.
+\end{proof}
+
+\begin{theorem} [Cauchy's convergence test]
+  A sequence converges if and only if it is cauchy sequence.
+  \label{thm:cauchy_test}
+\end{theorem}
+
+\begin{proof}
+  % (->) 했음.
+  % (<-) 코시수열 은 유계수열. 유계수열이면 수렴하는 부분수열을 가짐(PWT). 
+
+  We claim that $x_{n_k} \to l \implies x_n \to l$. 
+  
+  Let $\set{x_n}$ is a cauchy sequence and $\set{x_{n_k}}$ is a subsequence of
+  $\set{x_n}$. Then
+  \begin{equation}
+    \begin{split}
+      &\forall \eps > 0, \exists N_1: \forall m > n \ge N_1, \abs{x_m - x_n} 
+      < \frac{\eps}{2} \\
+      &\forall \eps > 0, \exists N_2: \forall n_k > k \ge N_2, \abs{x_{n_k} - l} 
+      < \frac{\eps}{2}.
+    \end{split}
+  \end{equation}
+
+  Let $N = \max (N_1, N_2)$. Then we completes the proof by following:
+  \begin{equation}
+    \abs{x_n - l} 
+    =   \abs{x_n - x_{n_k} + x_{n_k} - l}
+    \le \abs{x_n - x_{n_k}} + \abs{x_{n_k} - l}
+    <   \frac{\eps}{2} + \frac{\eps}{2}
+    =   \eps.
+  \end{equation}
+\end{proof}
+
+\subsection{Abstract}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+
+  \end{tikzpicture}
+  \caption{Relations of theorem about sequence}
+  \label{fig:}
+\end{figure}
+
+
+\subsection{Exercise}
+
+$x_1 = 2$, $x_{n+1} = (2x_n + 3) / (x_n + 2)$.
+\begin{proof}
+  Claim: $x_{n+1} - (2x_n + 3) / (x_n + 2) > 0$.
+
+  $x_1 = 2$, $x_{n+1} = (2x_n + 3) / (x_n + 2)  = x_n^2 - 3 / x_n + 2$.
+
+  Claim: $x_n^2 > 3$.
+
+  using induction.
+
+  $x_1^2 = 4 > 3$.
+
+  Assume that $x_k^2 > 3$.
+
+  $x_{k+1}^2 - 3 = (2x_k + 3 / x_k + 2)^2 - 3 = x_k^2 - 3 / (x_k + 2)^2 > 0$.
+
+  $x_n > x_{n+1}$ and $x_n > \sqrt{3}$.
+
+  By MCT, $x_n$ has a limit. Let $x_n \to x$.
+
+  $x_{n+1} \to 2x + 3 / x + 2 \implies x = \sqrt{3}$.
 \end{proof}

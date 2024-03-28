@@ -1,11 +1,12 @@
-\chapter{이동 통신 보안}
+\chapter{Mobile Telecommunication Security}
 
-\section{1 ~ 2 주차}
+\newpage
+\section{Cryptography Primitive}
 
 암호화의 기본 기법으로 대칭 키 암호화, 비대칭 키 암호화, 전자 서명 그리고 해시가 있다.
 이를 바탕으로 보안 시스템을 구현할 수 있다.
 
-\subsection*{대칭 키}
+\subsection*{Symmetric Key Encryption}
 
 대칭 키 암호는 암호화 키와 복호화 키가 같은 암호 알고리즘을 뜻한다. 따라서
 송신자와 수신자는 서로 같은 키를 공유해야 한다. 대칭 키 암호 통신 과정은
@@ -48,7 +49,7 @@ SEED, ARIA, LEA가 있다. 대칭 키 암호는 공개 키 암호보다 빠르�
   \label{equ:kdc}
 \end{equation}
 
-\subsection*{비대칭 키}
+\subsection*{Asymmetric Key Encryption}
 
 비대칭 키(혹은 공개 키로도 불림)는 대칭 키 암호와 다르게 암호화 키(공개 키)와
 복호화 키(비밀 키)가 다른 암호 알고리즘을 뜻한다. 두 키는 서로 수학적으로
@@ -91,7 +92,7 @@ SEED, ARIA, LEA가 있다. 대칭 키 암호는 공개 키 암호보다 빠르�
 RSA는 데탑에서는 사용할만한데...스마트폰이나 iot에서 사용할 때 문제가 생김
 오버헤드가 너무 커. ECC는 이걸 해결해. TLS는 예전에는 RSA를 쓰다가 ECC로 바꿈.
 
-\subsection*{해시와 전자서명}
+\subsection*{Hash Function and Digital Signature}
 
 해시함수는 임의 길이의 데이터를 고정 길이 데이터로 변환하는 함수이다. 일방향
 함수이며, 해시값은 통계적으로 유일. 해시함수는 데이터의 무결성(혹은 메시지 인증)을 검증하는데
@@ -155,7 +156,7 @@ MAC값은 $\alice$뿐만 아니라 $\bob$도 만들 수 있기 때문. 이를 �
 바뀔 수 있음.
 
 해결방법: 이 공개키는 내거라는 인증서를 만든다. 신뢰할 수 있는 제 3자가 인증서
-발행. 인증서에는 크게 소유자의 ID, 공개 키, 그리고 발금자의 서명(위조 방지)가
+발행. 인증서에는 크게 소유자의 ID, 공개 키, 그리고 발급자의 서명(위조 방지)가
 있다.
 
 안전한 공개키 암호 기술을 사용하기 위해 공개키 기반 구조(PKI, 인증서를 사용하는
@@ -165,4 +166,194 @@ CA(certification authority): 인증기관. -> 인증서 관리.
 RA(registration authority): 등록기관. -> 사용자 신분 확인.
 
 Y가 발행한 X의 인증서 Y<<X>>.
+
+root 인증서 : 발급자와 요청자가 같은 사람.
+
+root 인증서를 가지고 CA의 기능을 수행한다?
+크롬에 설치?
+
+CA가 하나만 있는건 현실적으로 어려움.
+한국 사람이 중국의 CA를 신뢰해서 알리 익스프레스에서 거래가 가능한가? 여러 CA가 신뢰관계를 쌓아야함.
+-> X1이 X2의 인증서를 발급하여 A에게 전달. (신뢰관계 형성)
+-> A는 X2의 공개키를 신뢰할 수 있음.
+
+인증서를 취소해야 할 때. 유효기간의 만료. 인증서가 사라져서 재발급 해야 할 때. 등
+
+인증서 취소 목록(CRL)
+-> 취소 목록 생성 일시, 다음 생성 일시 (스케줄), 취소된 인증서 목록(일련번호, 취소 일시 등), CA의 서명.
+
+시간이 지날수록 CRL 크기 증가.
+시간차공격 가능.
+단일 CRL일 경우 관리가 어려움.
+
+인증서 검증 방법: 1. 유효한가? 2. 경로 검증 3. 인증서 용도 등...
+
+자기가 자기한테 인증서를 발급한다. -> 루트인증서. 내 공개키를 신뢰하게 만드는 상위 CA가 없을 때.
+
+미션?
+
+Diffie-Hellman(이하 DH) 키 교환은 암호 키를 교환하는 하나의
+방법으로, 두 사람이 암호화되지 않은 통신망을 통해 공통의 비밀 키 $\key$를 공유할 수
+있도록 한다. 휫필드 디피와 마틴 헬만이 1976년에 발표하였다. 앨리스 $\alice$와 밥
+$\bob$이 공개된 통신망에서 DH 키 교환을 하기 위해서는 그림
+\ref{fig:diffie}와 같은 절차를 거친다.
+
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}
+
+    % alice
+    \node at (0, 0) (alice) {$\alice$};
+    \node at (0, -1) (choose_pg) {choose $p, g$};
+    \node at (0, -2) (choose_a) {choose $a$};
+    \node at (0, -3) (compute_ya) {$A := g^a \mod p$};
+    \node at (0, -5) (get_yb) {$B$};
+    \node at (0, -6) (compute_yab) {$\key := B^a \mod p$};
+
+    % bob
+    \node at (7, 0) (bob) {$\bob$};
+    \node at (7, -1) (get_pg) {$p, g$};
+    \node at (7, -3) (get_ya) {$A$};
+    \node at (7, -4) (choose_b) {choose $b$};
+    \node at (7, -5) (compute_yb) {$B := g^b \mod p$};
+    \node at (7, -6) (compute_yba) {$\key := A^b \mod p$};
+
+    % line
+    \draw[->] (choose_pg) -- (get_pg);
+    \draw[->] (compute_ya) -- (get_ya);
+    \draw[->] (compute_yb) -- (get_yb);
+
+  \end{tikzpicture}
+  \caption{Diffie-Hellman Key Exchange}
+  \label{fig:diffie}
+\end{figure}
+
+마지막 단계에서 $\alice$와 $\bob$은 $g^{ab} \mod p$라는 공통의 $\key$를
+공유하게 된다. $\alice$와 $\bob$ 외에는 $a, b$를 알 수 없으며, $p, g, A, B$만 알
+수 있다. DH 키 교환은 통신을 하는 대상과 비밀 정보를 공유할 수 있지만,
+상대방에 대한 인증은 보장되지 않으며 중간자 공격이 가능하다. $\alice$와 $\bob$이
+상대방에 대한 인증을 하지 못할 경우, 공격자 $\eav$는 그림 \ref{fig:diffie_mitm}과 같이
+중간에서 통신을 가로채 $\alice$와 $\eav$, 그리고 $\eav$와 $\bob$ 사이에 각각 두 개의
+DH 키 교환을 생성하고, $\alice$와 $\bob$이 각각 서로와 통신을 하는 것처럼
+위장할 수 있다.
+
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}
+
+    % alice
+    \node at (0, 0) (alice) {$\alice$};
+    \node at (0, -1) (choose_pg) {choose $p, g$};
+    \node at (0, -2) (choose_a) {choose $a$};
+    \node at (0, -3) (compute_ya) {$A := g^a \mod p$};
+    \node at (0, -9) (get_yb) {$B$};
+    \node at (0, -10) (compute_yab) {$\key_2 := B^a \mod p$};
+
+    % eav
+    \node at (5, 0) (eav) {$\eav$};
+    \node at (5, -1) (eav_pg) {$p, g$};
+    \node at (5, -3) (eav_ya) {$A$};
+    \node at (5, -4) (choose_e1) {choose $e_1$};
+    \node at (5, -5) (compute_ye1) {$A := g^{e_1} \mod p$};
+    \node at (5, -7) (eav_yb) {$B$};
+    \node at (5, -8) (choose_e2) {choose $e_2$};
+    \node at (5, -9) (compute_ye2) {$B := g^{e_2} \mod p$};
+
+    % bob
+    \node at (10, 0) (bob) {$\bob$};
+    \node at (10, -1) (get_pg) {$p, g$};
+    \node at (10, -5) (get_ya) {$A$};
+    \node at (10, -6) (choose_b) {choose $b$};
+    \node at (10, -7) (compute_yb) {$B := g^b \mod p$};
+    \node at (10, -10) (compute_yba) {$\key_1 := A^b \mod p$};
+
+    % line
+    \draw[->] (choose_pg) -- (eav_pg);
+    \draw[->] (eav_pg) -- (get_pg);
+    \draw[->] (compute_ya) -- (eav_ya);
+    \draw[->] (compute_ye1) -- (get_ya);
+    \draw[->] (compute_yb) -- (eav_yb);
+    \draw[->] (compute_ye2) -- (get_yb);
+
+  \end{tikzpicture}
+  \caption{Man in the Middle Attack in Diffie-Hellman Key Exchange}
+  \label{fig:diffie_mitm}
+\end{figure}
+
+따라서, 공개 키 $A$ 또는 $B$를 건네 받을 경우, 이 공개 키가 $\alice$ 또는 $\bob$의 공개 키가 맞는지
+인증서를 이용하여 확인해야 한다.
+
+공동인증기관(루트 CA) -- 상호인증 -- 정부 인증 체계
+
+%******************************************************************************%
+\newpage
+\section{Kerberos Protocol} 
+
+인증을 하는 서버가 3개 나옴. 그래서 커버러스라고 함.
+
+대칭키 암호를 사용한 사용자 인증.
+
+상호인증: 통신 참여자가 각자 상대방 신분을 확인함. 키 교환 가능.
+
+기밀성을 보장하는가? 메시지 재전송 공격을 막을 수 있는가? (적시성.)
+
+옛날에 보낸 메시지를 도청해서 보관하다가 나중에 보내서 송신자인 척 함.
+
+해결 방법: 
+1. 서로가 메시지를 보내고 받는 횟수를 카운팅함.
+2. 시간정보를 넣음.
+3. 랜덤값을 송신자한테 보내고 이걸 암호화하라고 함.
+
+\subsection{Needham Schroeder Protocol}
+
+니덤-슈로더 프로토콜. KDC 기반 세션키 분배 프로토콜. 앨리스와 밥은 KDC를 신뢰함.
+앨리스와 밥은 각자 Ka Kb를 가지고 있음. KDC는 둘 다 가지고 있음.
+\begin{equation}
+  \begin{split}
+    \alice \to \kdc &: \id(\alice) \parallel \id(\bob) \parallel N_1 \\ 
+    \kdc \to \alice &: \enc(\key_{\alice}, 
+    \key \parallel \id(\bob) \parallel N_1 \parallel 
+    \enc(\key_{\bob}, \key \parallel \id(\alice))) \\
+    \alice \to \bob &: \enc(\key_{\bob}, \key \parallel \id(\alice))
+  \end{split}
+\end{equation}
+
+\newpage
+\subsection{Kerberos Protocol}
+
+커버러스는 제 3의 신뢰된 인증서버를 통해 개방된 분산 환경에 존재하는 사용자간의
+인증과 세션키 교환을 지원하는 인증 서비스이다.
+
+임의의 클라이언트 $\client$가 서버 $\server$에 접속하기 위해서는, 
+자격이 없는 클라이언트 $\client'$가 신분 위장 후 $\server$에 접속하는 시도를 막기위해
+인증을 시도해야한다.
+
+기호를 다음과 같이 정리한다.
+\begin{itemize}
+  \item $\client$: 클라이언트(사용자)
+  \item $\server$: 어플리케이션 서버
+  \item $\auth$: 인증 서버
+  \item $\id_x$: $x$에 대한 식별자
+  \item $\pw_x$: $x$가 사용하는 패스워드
+  \item $\netadr_x$: $x$의 네트워크 주소
+  \item $\key_{x, y}$: $x$와 $y$가 공유하는 비밀키
+\end{itemize}
+
+초기 커버러스
+1. 패스워드가 평문
+2. 재전송공격
+3. 다른 서버에 인증하기 위해서는 티켓을 다시 받아야함.
+4. 일방향 인증
+
+TGS를 이용한 커버러스
+1. 티켓의 유효기간에 따른 트레이드오프
+2. 일방향 인증
+
+\subsection{Kerberos Protocol V4}
+
+롱텀 키: 계속 쓰는 키.
+세션 키: 잠깐 쓰고 버리는 키.
+
+C는 AS를 신뢰할 수 있음. Kc는 C하고 AS만 공유하는 데, 평문에 IDtgs 로
+인증하면서, TS2로 재전송 공격도 막으므로 신뢰 가능함.
 

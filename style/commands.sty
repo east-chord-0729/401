@@ -7,7 +7,8 @@
 \newcommand{\alice}{\mathcal{A}}
 \newcommand{\bob}{\mathcal{B}}
 \newcommand{\carol}{\mathcal{C}}
-\newcommand{\id}{\textsf{ID}}
+\newcommand{\eav}{\mathcal{E}}
+\newcommand{\id}{ID}
 \newcommand{\klen}{n}
 \newcommand{\pkey}{pk}
 \newcommand{\skey}{sk}
@@ -16,5 +17,23 @@
 \newcommand{\sig}{\textsf{sign}}
 \newcommand{\mac}{\textsf{mac}}
 
+\newcommand{\kdc}{\textsf{KDC}}
+
+% 커버러스 통신
+\newcommand{\client}{\mathcal{C}}
+\newcommand{\server}{\mathcal{S}}
+\newcommand{\auth}{\mathcal{S}_{auth}}
+\newcommand{\pw}{P}
+\newcommand{\netadr}{AD}
+\newcommand{\ticket}{T}
+
 % 해석학
 % \newcommand{\sup}{\textsf{sup}}
+
+\tikzset{
+  every text node part/.style={
+  inner sep = 0.5cm,
+  text width = 4cm,
+  align=center
+  }
+}
