@@ -287,7 +287,7 @@ DH 키 교환을 생성하고, $\alice$와 $\bob$이 각각 서로와 통신을 
 
 %******************************************************************************%
 \newpage
-\section{Kerberos Protocol} 
+\section{Kerberos Protocol}
 
 인증을 하는 서버가 3개 나옴. 그래서 커버러스라고 함.
 
@@ -299,7 +299,7 @@ DH 키 교환을 생성하고, $\alice$와 $\bob$이 각각 서로와 통신을 
 
 옛날에 보낸 메시지를 도청해서 보관하다가 나중에 보내서 송신자인 척 함.
 
-해결 방법: 
+해결 방법:
 1. 서로가 메시지를 보내고 받는 횟수를 카운팅함.
 2. 시간정보를 넣음.
 3. 랜덤값을 송신자한테 보내고 이걸 암호화하라고 함.
@@ -310,9 +310,9 @@ DH 키 교환을 생성하고, $\alice$와 $\bob$이 각각 서로와 통신을 
 앨리스와 밥은 각자 Ka Kb를 가지고 있음. KDC는 둘 다 가지고 있음.
 \begin{equation}
   \begin{split}
-    \alice \to \kdc &: \id(\alice) \parallel \id(\bob) \parallel N_1 \\ 
-    \kdc \to \alice &: \enc(\key_{\alice}, 
-    \key \parallel \id(\bob) \parallel N_1 \parallel 
+    \alice \to \kdc &: \id(\alice) \parallel \id(\bob) \parallel N_1 \\
+    \kdc \to \alice &: \enc(\key_{\alice},
+    \key \parallel \id(\bob) \parallel N_1 \parallel
     \enc(\key_{\bob}, \key \parallel \id(\alice))) \\
     \alice \to \bob &: \enc(\key_{\bob}, \key \parallel \id(\alice))
   \end{split}
@@ -324,7 +324,7 @@ DH 키 교환을 생성하고, $\alice$와 $\bob$이 각각 서로와 통신을 
 커버러스는 제 3의 신뢰된 인증서버를 통해 개방된 분산 환경에 존재하는 사용자간의
 인증과 세션키 교환을 지원하는 인증 서비스이다.
 
-임의의 클라이언트 $\client$가 서버 $\server$에 접속하기 위해서는, 
+임의의 클라이언트 $\client$가 서버 $\server$에 접속하기 위해서는,
 자격이 없는 클라이언트 $\client'$가 신분 위장 후 $\server$에 접속하는 시도를 막기위해
 인증을 시도해야한다.
 
@@ -332,7 +332,7 @@ DH 키 교환을 생성하고, $\alice$와 $\bob$이 각각 서로와 통신을 
 \begin{itemize}
   \item $\client$: 클라이언트(사용자)
   \item $\server$: 어플리케이션 서버
-  \item $\auth$: 인증 서버
+  \item $a$: 인증 서버
   \item $\id_x$: $x$에 대한 식별자
   \item $\pw_x$: $x$가 사용하는 패스워드
   \item $\netadr_x$: $x$의 네트워크 주소
@@ -356,4 +356,156 @@ TGS를 이용한 커버러스
 
 C는 AS를 신뢰할 수 있음. Kc는 C하고 AS만 공유하는 데, 평문에 IDtgs 로
 인증하면서, TS2로 재전송 공격도 막으므로 신뢰 가능함.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \matrix[column sep=50mm,row sep=5mm]
+    {
+      \node {$\cl$};   & \node {$\au$};  \\
+      \node (L1) {}; & \node (R1) {}; \\
+       & \node (R2) {$\tk := \enc_{\key_{\au\tgs}}$};
+                       & \node {$\tgs$};  \\
+                       & \node {$\sv$};  \\
+    };
+    \graph
+    {
+      (L1) ->["$\id_{\cl}, \id_{\tgs}, \ts$"] (R1);
+    };
+  \end{tikzpicture}
+  \caption{Kerberos version 4 protocol}
+  \label{fig:ker_v4}
+\end{figure}
+
+\subsection{Kerberos Protocol V5}
+
+V4의 한계:
+DES 사용. 그러나 DES는 수출제한이 걸려있음.
+주소는 IP 주소만 사용.
+메시지 바이트 순서 고정.
+등등등
+
+기술적 결점:
+이중 암호화: 암호화로 티켓을 만들고, 그 티켓을 또 암호화함. 굳이 두번씀.
+PCBC 운용 모드(비표준) 사용.
+세션키 중복 사용.
+패스워드 추측 가능.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \matrix[column sep=50mm,inner sep=2mm]
+    {
+      \node {$\cl$};   & \node {$\au$};  \\
+      \node (send) {}; & \node (get) {}; \\
+                       & \node {$\tgs$};  \\
+                       & \node {$\sv$};  \\
+    };
+    \graph
+    {
+      (send) ->["$a, b, c, d, e$"] (get);
+    };
+  \end{tikzpicture}
+  \caption{}
+  \label{fig:mac}
+\end{figure}
+
+%******************************************************************************%
+\newpage
+\section{Secure Socket Layer, SSL}
+
+이 절에서는 보안 소켓 레이어(SSL)에 대해 설명한다.
+
+\subsection*{Background}
+
+소켓은 네트워크 통신을 위해 사용하는 라이브러리. SSL이란 소켓을 사용하는 임의의
+응용프로그램들을 위해 설계되었다. SSL의 중요한 목적은 두 통신 객체 사이에
+기밀성과 무결성을 지원하는 것이다. SSL은 후에 TLS로 발전하였다. SSL은 통신객체
+인증, 데이터 기밀성, 데이터 인증 및 무결성, 압축, 세션키 생성 및 분배, 보안속성
+협의(알고리즘, 키길이 등) 서비스를 제공한다.
+
+SSL은 TCP/IP 4계층에서 전송 계층과 응용 계층 사이에서 동작한다.
+
+\subsection*{Record Protocol}
+
+\def\record{\textsf{Record}}
+
+SSL 프로토콜은 우선 레코드 프로토콜이 동작한다. 레코드 프로토콜은 응용 데이터의
+기밀성과 무결성을 제공한다. 과정은 다음과 같다.
+\begin{quote}
+  \centering
+  fragment $\to$ compress $\to$ add MAC $\to$ encrypt $\to$ append SSL record
+  header.
+\end{quote}
+
+\subsection*{Hand Shake Protocol}
+
+핸드셰이크 프로토콜은 SSL 레코드 프로토콜에서 사용될 암호화 알고리즘과 압축
+알고리즘을 정하고, 객체(서버와 클라이언트)를 인증하며, 암호화 키를 생성하기 위한
+master secret 생성한다.
+\begin{equation}
+  \begin{split}
+    \cl \to \sv &: \textsf{client hello} \\
+    \sv \to \cl &: \textsf{server hello} \\
+    \cl \to \sv &: \textsf{premaster secret, change cipher spec, finished} \\
+    \sv \to \cl &: \textsf{change cipher spec, finished}
+  \end{split}
+\end{equation}
+\begin{itemize}
+  \item \textsf{client hello}: 클라이언트는 지원하는 최고 TLS 프로토콜 버전,
+  난수, 희망하는 세션 아이디, 제안된 암호 모음 목록 및 제안된 압축 방법을 지정하여 보냅니다.
+  \item \textsf{server hello}: 서버는 클라이언트가 선택한 프로토콜 버전, 난수, 세션 아이디,
+  암호 제품군 및 압축 방법을 포함하여 보냅니다.
+  \item \textsf{certificate}: 서버는 클라이언트가 서버의 공개키를 신뢰할 수 있도록
+  인증서를 전송합니다.(중간자 공격 방지).
+  \item \textsf{server hello done}: 서버는 핸드셰이크 협상이 완료되었음을 나타냅니다.
+  \item \textsf{client key exchage}: 클라이언트는 \textsf{premaster secret}을
+  서버 인증서의 공개 키를 사용하여 암호화하여 전송합니다.
+  
+  change cipher spec: 협상 성공 여부(선택한
+  알고리즘 사용하겠다!), finished(mac값이라고 생각하셈.) = prf(matser secret,
+  client finish, H(handsake messages)). request를 받았다면, certificate와
+  certificate verify를 보냄. 개인키로 암호화해서 보냄. (전자서명.) 난수도
+  따끈따끈한 난수라 재전송 공격 방지. master secret = seed1 seed2 premaster
+  \item \textsf{change cipher spec}:
+  \item \textsf{finished}: finish 받음. 개인키로 복호화 해서 premaster secret 얻음. -> master secret 생성.
+  spec 확인해서 우리가 사전에 협약한 알고리즘을 쓰는지 확인. -> prf 돌려서 finish 생성.
+  이제 내가 키를 증명해야 하니까 새로운 finish 생성. (두개는 서로 다른 Finish임. 입력이 좀 다름.)
+  spec도 보냄. client: spec 확인. 알고리즘 쓴다는걸 확인해. 그럼 finish 생성해서 같은지 확인.
+\end{itemize}
+
+sertificate request: 클라이언트 인증을 위해 요구함. 기존은 서버만 인증하는 구성임.
+
+마스터 시크릿이 만들어졌어. 이제 데이터를 암호화 해야 함. 레코드 프로토콜에서 맥값, 암호화 등등 해야 하니까.
+그걸 위한 키들은 키블럭에 있음. 이 키블럭은 마스터 시크릿으로 만드는 거임.
+
+클라이언트/서버 맥 키,  클라이언트/서버 키, 클라이언트/서버 초기화 벡터.
+
+1.3
+최신암호. 1라운드 트립. 롱텀키를 뺐겨도 세션키는 안전함(순방향비밀성). 신분노출방지.
+
+ECDH를 사용하면 순방향비밀성을 지킬 수 있다. server key exchange 때문. 이 때 전자서명도 한번에 보내므로
+finish가 아니라 1라운드에서 인증이 된다.
+
+%******************************************************************************%
+\newpage
+\section{Transport Layer Security, TLS}
+
+레코드 프로토콜: 분할 -> 암호화 -> 인증(AEAD).
+기존에는: 분할 -> 압축 -> 인증 -> 암호화.
+
+핸드셰이크: 두 객체가 인증하기 위한 프로토콜. 키교환, 알고리즘 협상.
+성능향상: 2라운드 트립 -> 1라운드 트립.
+보안: 알고리즘 향상. 
+
+키교환 옵션: 
+  풀(서로가 처음 통신할 때, 완전순방향), 
+  프리셰어드(이전 세션에서 공유된 키를 통해 키교환)
+
+
+키쉐어: DH 키가 있음. -> tkchs를 생성: 핸드셰이크를 암호화할 키.
+   
+중간자 공격 가능: 첫번째 키교환은 가능 -> 늦게 알게됨(늦게라도 검증은 됨), 근데 뭐 공격자가 어마무시한 걸 알 가능성이 낮다고 판단.
+, 두번째 공개키는 인증서 때문에 불가능.
+자원 고갈 공격: 계속 키 생성 요청.
 

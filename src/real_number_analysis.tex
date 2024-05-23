@@ -1,0 +1,870 @@
+\chapter{Mathematical Analysis}
+
+% 단답형 질문은 쪽지, 복잡한 질문은 e-mail. (평일 9:00 ~ 17:00), 학번 이름 학과 분반 밝힐 것.
+% e-mail: kagness@kookmin.ac.kr
+% 40 40 과제 10 출석(호명) 10
+% 쉬는날 비대면.
+% 과제는 자필로 + 종이로. 중간 5번 기말 5번 있음. 풀이과정, 노력점수 있음.
+% 지각 -1점
+% 결석: 주임교수, 대학장 직인필.
+
+\section{Axiom}
+
+\begin{definition}
+
+  \label{def:field}
+\end{definition}
+
+\begin{axiom}
+  $\RR$ is a field.
+  \label{axm:field}
+\end{axiom}
+
+\begin{axiom}
+  Let $P$ be a nonempty subset of $\RR$ which we define as the set of positive
+  real numbers. Then $P$ have following axioms:
+  \begin{itemize}
+    \item Axiom 1. If $a, b \in P$, then $a + b \in P$.
+    \item Axiom 2. If $a, b \in P$, then $a \cdot b \in P$.
+    \item Axiom 3. If $a \in \RR$ then only one of the following holds: $a \in P$
+          or $-a \in P$ or $a = 0$.
+  \end{itemize}
+  \label{axm:order}
+\end{axiom}
+
+\begin{property}
+  Let $P$ be a nonempty subset of $\RR$ which we define as the set of positive
+  real numbers. Then $P$ have following properties:
+  \begin{itemize}
+    \item $\forall a, b, c \in \RR$, exactly one of $a < b$, $a = b$ and $a > b$
+          is true. 순서가 있으니 $<, >, =, \ge, \le$ 등을 사용할 수 있음.
+    \item $\forall a, b, c \in \RR$, if $a < b$ and $b < c$ then $a < c$.
+    \item $\forall a, b \in \RR$, if $a \le b$ and $a \ge b$ then $a = b$.
+    \item $\forall a, b, c \in \RR$, if $a < b$ then $a + c < b + c$.
+    \item $\forall a, b, c \in \RR$, if $a < b$ and $c > 0$ then $ac < bc$.
+  \end{itemize}
+\end{property}
+
+\section{Bound}
+
+\begin{definition}
+  Let $X \subseteq \RR$ and $ X \neq \varnothing$. $X$ is \emph{bounded above}
+  if $\forall x \in X, \exists a \in \RR:a \geq x$. $a$ is \emph{upper bound} of $X$.
+  $X$ is \emph{bounded below} if $\forall x \in X, \exists b \in \RR:b \leq x$.
+  $b$ is \emph{lower bound} of $X$.
+  \label{def:bound}
+\end{definition}
+
+\begin{definition}
+  Let $a$ is upper bound of $X$. $a$ is a \emph{supremum} if for all upper bound
+  $a'$ of $X$, $a' \leq a$. $a$ is denoted $\sup X$.
+  Let $b$ is lower bound of $X$. $b$ is a \emph{infimum} if for all lower bound
+  $b'$ of $X$, $b' \geq b$. $a$ is denoted $\inf X$.
+  \label{def:sup}
+\end{definition}
+
+\begin{theorem}(completeness axiom)
+  Let $X$ is bounded above. $\sup X$ is uniquely exist.
+  Let $X$ is bounded below. $\inf X$ is uniquely exist.
+  \label{pro:sup_uniq}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}
+  Let $a$ is upper bound of $X$
+  $X$가 위로 유계이고, $a$가 $X$의 상계일 때, $a = \sup X$라면, 모든 $\eps < 0$에 대해
+  $a - \eps < x \leq a$를 만족하는 $x \in X$가 존재하며, 그 역도 성립한다.
+  \label{pro:bound1}
+\end{theorem}
+\begin{proof}
+  $(\rif)$ 여기서는 대우 명제를 증명한다. 모든 $\eps < 0$에 대해 $a -
+    \eps < x \leq a$를 만족하는 $x$가 존재하지 않는다고 가정하자. 이는 즉
+  모든 $x$에 대해 $a - \eps < x$를 만족하므로, $a - \eps$은 $X$의
+  상계가 된다. $a - \eps < a$이기 때문에 $a$는 $\sup X$가 아니다. \\
+  $(\lif)$ 모든 $\eps < 0$에 대해 $a - \eps < x \leq a$인 $x$가
+  존재하므로 $a - \eps$은 상계가 아니다. 이는 $a$보다 작은 모든 실수가
+  상계가 아니라는 뜻이므로, $a$는 상한이다.
+\end{proof}
+
+$\sup X = \infty$라면, $X$는 위로 유계가 아니다.
+
+$X = \emptyset$이면, $\sup = -\infty$.
+$\forall r \in \RR$, $x \in X \implies x \leq r$이다.(p이면 q이다 에서 p가
+거짓이면, 이 조건문은 무조건 참).
+
+\begin{definition}
+  $X$가 위로 유계가 아니면, $\sup X = \infty$이라 한다.
+  $X$가 아래로 유계가 아니면 $\inf X = -\infty$이라 한다.
+  \label{def:not_bound}
+\end{definition}
+
+실수 $\RR$은 위로 유계도, 아래로 유계도 아니다.
+
+아르키메데스의 성질
+\begin{theorem}
+  모든 $a, b \in \RR, a > 0$에 대하여, $na > b$이 성립 되는 적당한 $n \in \NN$가 존재한다.
+  \label{thm:arc}
+\end{theorem}
+
+\begin{proof}
+  (역이 모순이라는 것을 증명)
+  모든 자연수 $n$가 $na \le b$를 만족하는 $a > 0$이 존재한다고 가정하자.
+  $b$는 $A = \set{na : n \in \NN}$의 상계이고, $A$는 위로 유계이다.
+  완비성의 공리에 의해, $\sup A$는 존재한다.
+  즉 $(n + 1) \cdot a \le \sup A$를 만족한다. 이는
+  $na < \sup A - a$이므로,  $\sup A - a$는 $A$의 상계이다.
+  상한의 정의에 의해, $a \le 0$이므로,
+
+  정리 \ref{pro:bound1}에 의해, 모든 $\eps > 0$에 대해
+  $\sup A - \eps < n \le \sup A$를 만족하는 $n$이 존재한다.
+\end{proof}
+
+이를 통해 알 수 있는 것. $0 < a < b$에 대해 $na > b$이 성립하는 $n$이 존재한다.
+$a$가 아무리 작고 $b$가 아무리 커도, $a$를 계속 더하면 $b$를 넘을 수 있음.
+
+자연수 집합 $\NN$은 실수 $\RR$에서 위로 유계가 아니다.
+
+
+\subsection*{Exercises}
+
+\begin{exercise}
+  모든 $n \ge 4$에 대해, $n! > 2^n$임을 보여라.
+\end{exercise}
+
+\begin{solution}
+  수학적 귀납법으로 보인다.
+  $4! = 24 > 2^4$이므로 $n = 4$일 때 성립.
+  $k > 4$에 대하여, $k! > 2^k$가 성립한다고 가정하자. 그러면
+  $(k + 1)! > 2^k \cdot (k + 1) > 2^k \cdot 2 > 2^(k + 1)$이므로 증명은 완성된다.
+\end{solution}
+
+\begin{exercise}
+
+\end{exercise}
+
+\begin{solution}
+  $A_2 = A_2^o and A_2^e$이다.
+  $\sup A_2^o = \frac{1}{2}$
+  $\inf A_2^e = -\frac{1}{2}$ 뭐 대충 이느낌.
+\end{solution}
+
+\begin{exercise}
+  $A = (-\infty, 3) and (4, 5]$에서의 상한과 하한을 구해라.
+\end{exercise}
+
+\begin{solution}
+  $\sup A = 5, \inf A  = -\infty$
+\end{solution}
+
+\begin{exercise}
+  $a, b \in \RR$이라 하자. 임의의 $\eps$에 대하여, $\abs{a-b} < \eps$이면, $a = b$임을 보여라.
+\end{exercise}
+
+\begin{solution}
+  $A = \set{\eps \in \RR : \eps > 0}$이라 하자. $A = (0, \infty)$이다.
+  $\abs{a - b}$는 $A$의 하계이다. $A$는 아래로 유계이다.
+  완비성의 공리에 의해, $\inf A$가 유일하게 존재한다. $\inf A \ge \abs{a - b}$이다.
+  $\inf A = 0$이다. $\abs{a - b} \ge 0$이므로, $\abs{a - b} = 0$이다.
+\end{solution}
+
+\begin{exercise}
+  (베르누이 부등식)$x > -1$이면 모든 자연수 $n$에 대하여 $(1 + x)^n \ge 1 + nx$임을 보여라.
+\end{exercise}
+
+\begin{solution}
+  PMI(?) $(1 + x)^1 = 1 + x \ge 1 + 1x$이므로 성립.
+  $(1 + x)^k \ge 1 + kx$가 성립한다고 가정하자.
+  $(1 + x)^(k+1) = (1 + x)^k \cdot (1 + x) \ge (1 + kx) \cdot (1 + x)
+    = 1 + kx + x + kx^2 \ge 1 + kx + x = 1 + (k + 1)x$가 성립하므로 증명은 완성된다.
+\end{solution}
+
+%******************************************************************************%
+\section{Sequence}
+
+\begin{definition}
+  Let $a_n$ is a sequence. $a_n$ \emph{converges} if
+  \begin{equation}
+    \forall \eps \in \RR_{> 0}, \exists N \in \NN: \forall n \in \NN_{\ge N}, \abs{a_n - l} < \eps.
+  \end{equation}
+  $l \in \RR$ is a \emph{limit} of the sequence $a_n$, which is written $\limn
+    a_n = l$.
+  \label{def:lim}
+\end{definition}
+
+% 예를 들어, $a_n = \frac{1}{n}$이라고 할 때, 아르키메데스의 성질에 의해 $a_n \to 0$이다.
+% $a_n = 2 + \frac{1}{2^n}$이라고 할 때, 베르누이 부등식을 사용하여, $a_n \to 2$임을 알 수 있다.
+
+\begin{theorem}
+  If the limit of a sequence exists then it is unique.
+  \label{thm:lim_uniq}
+\end{theorem}
+
+\begin{proof}
+  Let $l_1, l_2$ are limit of the sequence $a_n$. Then
+  \begin{equation}
+    \begin{split}
+      &\forall \eps > 0, \exists N_1:
+      \forall n \ge N_1, \abs{a_n - l_1} < \frac{\eps}{2} \\
+      &\forall \eps > 0, \exists N_2:
+      \forall n \ge N_2, \abs{a_n - l_2} < \frac{\eps}{2}.
+    \end{split}
+  \end{equation}
+  Let $N = \max(N_1, N_2)$. Then
+  \begin{equation}
+    \forall n \ge N, \abs{l_1 - l_2}
+    = \abs{l_1 - a_n + a_n - l_2}
+    \le \abs{a_n - l_1} + \abs{a_n - l_2}
+    < \frac{\eps}{2} + \frac{\eps}{2} = \eps
+  \end{equation}
+  It follows that $\abs{l_1 - l_2} = 0$ and $l_1 = l_2$. It completes the proof.
+\end{proof}
+
+% \footnote{역은 성립하지 않는다. $\set{(-1)^n}$가 그 예시이다.}
+
+\begin{theorem}
+  If the limit of a sequence exists then the sequence is bounded.
+  \label{thm:lim_bou} % limit bound
+\end{theorem}
+
+\begin{proof}
+  Let $l$ is limit of the sequence $a_n$. Then
+  \begin{equation}
+    \forall \eps > 0, \exists N: \forall n \ge N, \abs{a_n - l} < \eps.
+  \end{equation}
+  It follows that
+  \begin{equation}
+    \abs{a_n} = \abs{a_n - l + l} \le \abs{a_n - l} + \abs{l} < \eps + \abs{l}.
+  \end{equation}
+  Let $M = \max(a_1, \cdots, a_{N-1})$. Then
+  \begin{equation}
+    \forall n, a_n \le \max (M, \eps + \abs{l}).
+  \end{equation}
+  It completes the proof.
+\end{proof}
+
+% \begin{proposition}
+%   $a_n$이 유계수열이고 $y_n$이 0으로 수렴하면, 수열 $a_n y_n$은 0으로 수렴한다.
+% \end{proposition}
+
+% \begin{proof}
+%   모든 $n \in NN$에 대해 $\abs{a_n} \le M$인 $M$이 존재한다. 모든 $\eps > 0, n
+%     \in \NN$에 대해 $n \ge N$을 만족하는 $N$이 존재하면, $\abs{y_n - 0} <
+%     \frac{\eps}{M}$이다.
+
+%   다음으로 증명은 완성된다.
+%   $\abs{a_ny_n - 0} = \abs{a_ny_n} < M \cdot \frac{\eps}{M} < \eps$.
+% \end{proof}
+
+% 과제 1번.
+
+% \begin{proof}
+%   for all $\eps > 0$, and for all $n \in \NN$, exist $N$ s.t. $n \ge N$ and
+%   $\abs{\frac{1}{n^2 + 1} - 0} < \eps$.
+
+%   $n^2 > n^2 > N^2 \implies \frac{1}{n^2 + 1} < \frac{1}{N^2} = \eps$
+% \end{proof}
+
+\begin{theorem}[Squeeze theorem]
+  \label{thm:limit_squeeze}
+  Let $a_n \to l, y_n \to l$. Then
+  \begin{equation}
+    \forall n, a_n \le z_n \le y_n \implies z_n \to l.
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Since $a_n \to l, y_n \to l$, we have
+  \begin{equation}
+    \begin{split}
+      \forall \eps > 0, \exists N_x: \forall n \ge N_x, -\eps < a_n - l < \eps \\
+      \forall \eps > 0, \exists N_y: \forall n \ge N_y, -\eps < y_n - l < \eps.
+    \end{split}
+  \end{equation}
+
+  Let $N = \max(N_x, N_y)$. since $a_n \le z_n \le y_n$, we completes the proof
+  by following
+  \begin{equation}
+    \forall \eps > 0, n \ge N, -\eps < a_n - l \le z_n - l \le y_n - l < \eps.
+  \end{equation}
+\end{proof}
+
+% $z_n = \sin / n \to 0$.
+
+% 증가 수열, 감소 수열, 순증가 수열, 순감소 수열, 단조수열.
+
+\subsection{Monotone Sequences}
+
+\begin{definition}
+  \label{def:mono}
+  the squence $\set{a_n}$ is \emph{monotone increasing sequence} if $\forall n,
+    a_n \le x_{n+1}$.
+\end{definition}
+
+\begin{lemma}
+  If a sequence is increasing and bounded above, then its supremum is the limit.
+  \label{lem:mono_limit_1}
+\end{lemma}
+
+\begin{proof}
+  Let $x := \sup{\set{a_n}}$.
+\end{proof}
+
+\begin{lemma}
+  If a sequence is decreasing and bounded below, then its infimum is the limit.
+  \label{lem:mono_limit_2}
+\end{lemma}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}[Monotone convergence theorem, MCT]
+  If a sequence is bounded and monotone, then it converges.
+  \label{thm:mono_limit}
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+%***%
+\subsection{Subsequences}
+
+\begin{definition}
+  $\set{x_{n_k}}$ is a \emph{subsequence} of $\set{a_n}$ if $\set{n_k}$
+  is increasing sequence.
+  \label{def:sub}
+\end{definition}
+
+\begin{theorem}
+  If a sequence $\set{a_n}$ has a limit $l$ then all subsequence
+  $\set{x_{n_k}}$ of $\set{a_n}$ also have a limit $l$.
+  \label{thm:sub_limit}
+\end{theorem}
+
+\begin{proof}
+  It is clear that $n_1 \ge 1$. Suppose that $n_k
+    \ge k$. Since $n_k$ is increasing sequence, we have $n_{k+1} > n_k \ge k$. It
+  follows that $n_{k+1} \ge k + 1$ and we have
+  \begin{equation}
+    n_k \ge k.
+  \end{equation}
+
+  Let $a_n \to l$. We completes the proof by following.
+  \begin{equation}
+    \forall \eps > 0, \exists k: \forall n_k \ge k, \abs{x_{n_k} - l} < \eps.
+  \end{equation}
+\end{proof}
+
+
+\subsection{Nested Sequences}
+
+\begin{definition}
+  Let $I_n = [a_n, b_n]$, where $\abs{I_n} = b_n - a_n$ denotes the
+  \emph{length} of such an interval. One can call $I_n$ a sequence of nested
+  intervals, if
+  \begin{equation}
+    \begin{split}
+      \forall n, I_{n + 1} < I_n,
+    \end{split}
+  \end{equation}
+  \label{def:nest}
+\end{definition}
+
+\begin{theorem} [Nested intervals theorem]
+  Let $I_n = [a_n, b_n]$ is nested. If $(b_n - a_n) \to 0$, then $\exists! x \in
+    \RR$ such that $x \in I_n$.
+  \label{thm:nest_int}
+\end{theorem}
+
+\begin{proof}
+  First we prove existence. Note that $a_n$ is bounded. By MCT, $a_n \to \sup
+    A$. Let $x = \sup A$. Since $b_n$ is upper bound, $a_n \le x \le b_n$. then $x
+    \in I_n$. Now we prove uniqueness. Assume that $y \in I_n$. then $a_n \le y
+    \le b_n$. It follows that $0 \le y - a_n \le b_n - a_n$. By squeeze theorem,
+  $y - a_n \to 0$. It follows that $a_n \to y = x$.
+\end{proof}
+
+\begin{theorem} [Bolzano-Weierstrass theorem]
+  bounded sequence has a convergent subsequence.
+  \label{thm:nest_bol}
+\end{theorem}
+
+\begin{proof}
+  Let $\set{a_n}$ is a bounded sequence. Then we have
+  \begin{equation}
+    \forall n, \exists M > 0: -M \le a_n \le M.
+  \end{equation}
+
+  Let $I_1 = [0, M], I_n = [\frac{(2^n - 1)M}{2^n}, M]$. Since $\forall k, I_k
+    \supset I_{k + 1}$, $I_n$ is nested. By nested intervals theorem,
+  $\abs{x_{n_k} - x} < \frac{M}{2^{n-1}}$.
+\end{proof}
+
+
+\subsection{Cauchy Sequences}
+
+\begin{definition}
+  a sequence $\set{a_n}$ is \emph{Cauchy sequence} if
+  \begin{equation}
+    \forall \eps > 0, \exists N: \forall m > n \ge N, \abs{x_m - a_n} < \eps.
+  \end{equation}
+  \label{def:cauchy}
+\end{definition}
+
+\begin{theorem}
+  if a sequence converges, then it is cauchy sequence.
+  \label{thm:cauchy_conv}
+\end{theorem}
+
+\begin{proof}
+  Let $a_n \to l$. Then
+  \begin{equation}
+    \begin{split}
+      \forall \eps > 0, \exists N: \forall n \ge N,
+      \abs{a_n - l} < \frac{\eps}{2}, \\
+      \forall \eps > 0, \exists N: \forall m \ge N,
+      \abs{a_n - l} < \frac{\eps}{2}.
+    \end{split}
+  \end{equation}
+
+  Let $m > n$. Then
+  \begin{equation}
+    \abs{x_m - a_n}
+    =   \abs{x_m - l + l - a_n}
+    \ge \abs{x_m - l} + \abs{a_n - l}
+    <   \frac{\eps}{2} + \frac{\eps}{2}.
+  \end{equation}
+\end{proof}
+
+\begin{theorem}
+  A cauthy sequence is bounded.
+  \label{thm:cauchy_bound}
+\end{theorem}
+
+\begin{proof}
+  Let $a_n$ is a cauchy sequence. Then
+  \begin{equation}
+    \exists N: \forall m > n \ge N, \abs{x_m - a_n} < 1.
+  \end{equation}
+
+  Let $n < N$. Then
+  \begin{equation}
+    \abs{a_n} < \max (\abs{x_1}, \cdots, \abs{x_{N-1}}).
+  \end{equation}
+
+  Let $n \ge N$. Then
+  \begin{equation}
+    \abs{a_n}
+    =   \abs{a_n - a_n + a_n}
+    \le \abs{a_n - a_n} + \abs{a_n}
+    <   1 + \abs{a_n}.
+  \end{equation}
+
+  Let $M = \max (\abs{x_1}, \cdots, \abs{x_{N-1}, 1 - \abs{a_n}})$. Then
+  $\exists M: \abs{a_n} \ge M$. This completes the proof.
+\end{proof}
+
+\begin{theorem} [Cauchy's convergence test]
+  A sequence converges if and only if it is cauchy sequence.
+  \label{thm:cauchy_test}
+\end{theorem}
+
+\begin{proof}
+  % (->) 했음.
+  % (<-) 코시수열 은 유계수열. 유계수열이면 수렴하는 부분수열을 가짐(PWT). 
+
+  We claim that $x_{n_k} \to l \implies a_n \to l$.
+
+  Let $\set{a_n}$ is a cauchy sequence and $\set{x_{n_k}}$ is a subsequence of
+  $\set{a_n}$. Then
+  \begin{equation}
+    \begin{split}
+      &\forall \eps > 0, \exists N_1: \forall m > n \ge N_1, \abs{x_m - a_n}
+      < \frac{\eps}{2} \\
+      &\forall \eps > 0, \exists N_2: \forall n_k > k \ge N_2, \abs{x_{n_k} - l}
+      < \frac{\eps}{2}.
+    \end{split}
+  \end{equation}
+
+  Let $N = \max (N_1, N_2)$. Then we completes the proof by following:
+  \begin{equation}
+    \abs{a_n - l}
+    =   \abs{a_n - x_{n_k} + x_{n_k} - l}
+    \le \abs{a_n - x_{n_k}} + \abs{x_{n_k} - l}
+    <   \frac{\eps}{2} + \frac{\eps}{2}
+    =   \eps.
+  \end{equation}
+\end{proof}
+
+\subsection{Limit Superior}
+
+\begin{definition}
+  Let $\set{a_n}$ is a bounded sequence. $\lim_{k \to \infty} \sup\set{a_n: n
+      \ge k, k \in \NN}$ is a \emph{limit superior} of $\set{a_n}$ and denote
+  $\varlimsup a_n$.
+  % 이거 수정할 필요 있음. k를 명확하게 표현해야 함. 전부 lim으로 표현해야 할지도.
+  if $a_n$ is not bounded, then we define $\varlimsup a_n = \infty$.
+  \label{def:lim_sup}
+\end{definition}
+
+
+\begin{theorem}
+  Let $\set{a_n}$ is a bounded sequence. Then,
+  \begin{equation}
+    \varlimsup a_n = \inf\set{\sup\set{a_n: n \ge k}: k \in \NN}.
+  \end{equation}
+  \label{thm:lim_sup_inf}
+\end{theorem}
+
+\begin{theorem}
+  \begin{equation}
+    \varlimsup a_n = \varliminf a_n = \lim a_n.
+  \end{equation}
+  \label{thm:lim_sup}
+\end{theorem}
+
+\subsection{Abstract}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+
+  \end{tikzpicture}
+  \caption{Relations of theorem about sequence}
+  \label{fig:}
+\end{figure}
+
+
+\subsection{Exercise}
+
+1. $x_1 = 2$, $x_{n+1} = (2a_n + 3) / (a_n + 2)$.
+\begin{proof}
+  Claim: $x_{n+1} - (2a_n + 3) / (a_n + 2) > 0$.
+
+  $x_1 = 2$, $x_{n+1} = (2a_n + 3) / (a_n + 2)  = a_n^2 - 3 / a_n + 2$.
+
+  Claim: $a_n^2 > 3$.
+
+  using induction.
+
+  $x_1^2 = 4 > 3$.
+
+  Assume that $x_k^2 > 3$.
+
+  $x_{k+1}^2 - 3 = (2x_k + 3 / x_k + 2)^2 - 3 = x_k^2 - 3 / (x_k + 2)^2 > 0$.
+
+  $a_n > x_{n+1}$ and $a_n > \sqrt{3}$.
+
+  By MCT, $a_n$ has a limit. Let $a_n \to x$.
+
+  $x_{n+1} \to 2x + 3 / x + 2 \implies x = \sqrt{3}$.
+\end{proof}
+
+2. Let $a_n = (-1)^n$. find $\varlimsup a_n$.
+\begin{proof}
+  Let $A_k = \sup{a_n: n \ge k}$. Note that $A_k = 1$. Then $\lim_{k \to \infty}
+    A_k = 1$. Hence, $\varlimsup = 1$.
+\end{proof}
+
+3. find a limit superior and limit inferior of $x\frac{(-1)^n}{n}$.
+\begin{proof}
+  Note that $A_1 = 1/2 \ge A_2 = 1/2 \ge A_3 = 1/4 \ge \cdots \ge A_k$ and we
+  have
+  \begin{equation}
+    \begin{split}
+      A_k = 1/(k + 1), if k is odd,
+      A_k = 1/k, if k is even.
+    \end{split}
+  \end{equation}
+  Hence, $\varlimsup a_n = \lim_{k \to \infty} A_k = 0$.
+\end{proof}
+
+%******************************************************************************%
+\newpage
+\section{Series}
+
+This section deals with infinite series (series for short). The following is a
+definition of series.
+\begin{definition}
+  Let $a_n$ is a sequence. $s$ is a \emph{sum of the series} of $a_n$ if
+  \begin{equation}
+    s = \ser a_n = \limn\sum_{i = 1}^{n} a_i,
+  \end{equation}
+  and $S_n$ is a \emph{$n$-th partial sum} of $a_n$ if
+  \begin{equation}
+    S_n = \sum_{i = 1}^{n} a_i.
+  \end{equation}
+  For a series, the \emph{sum} of the series to be the limit of the partial
+  sums. That is:
+  \begin{equation}
+    \ser a_n = \limn\sum_{n = 1}^{N}
+    a_n = \limn S_n.
+  \end{equation}
+  If the limit exists we say the series converges, otherwise we say the series
+  diverges.
+  \label{def:ser}
+\end{definition}
+
+% Here is an example of series. Let $a_n = 1/n$. Then $s_n$ is not converges. To
+% show that, we claim that $s_n$ is not a cauchy sequence. Let $m > n$ and $\eps =
+% 1 - n/m$. Then the following shows that $s_n$ is not a cauchy sequence.
+% \begin{equation}
+%   \abs{s_m - s_n}
+%   =   \abs{\frac{1}{n+1} + \frac{1}{n+2} + \cdots + \frac{1}{m}}
+%   >   1 - \frac{n}{m}
+%   =   \eps.
+% \end{equation}
+
+% Note that a converse of this theorem is not true. we already show the counter
+% example, $a_n = 1/n$. This theorem use to check a series converges, since a
+% limit of sequence is not $0$, then a series diverges by the theorem. It is why
+% the theorem called `Divergence test of series'.
+
+\begin{theorem}
+  Let serieses $\ser a_n$, and $\ser b_n$ are
+  converge. Then,
+  \begin{itemize}
+    \item $\ser (a_n \pm b_n) = \ser a_n \pm \ser b_n$.
+    \item $\ser c \cdot a_n = c \cdot \ser a_n$.
+  \end{itemize}
+  \label{thm:ser_lin} % linearlity of series
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
+% Consider a seires $\ser \brk{3/n(n+1) + 1/2^n}$. By the theorem,
+% \begin{equation}
+%   \ser \brk{\frac{3}{n(n+1)} + \frac{1}{2^n}}
+%   = 3 \ser \frac{1}{n(n+1)} + \ser \frac{1}{2^n}
+%   = 3 \ser \brk{\frac{1}{n} - \frac{1}{n+1}} + 1
+%   = 3 \cdot \brk{1 - \frac{1}{n+1}} + 1 = 4.
+% \end{equation}
+
+\subsection{Tests of Series}
+
+\begin{theorem}[Divergence test of series]
+  If $\ser a_n$ converges, then $\limn a_n = 0$.
+  \label{thm:ser_test_div}
+\end{theorem}
+\begin{proof}
+  Let $s = \limn s_n$. Since $a_n = s_n - s_{n-1}$,
+  \begin{equation}
+    \limn a_n = \limn (s_n - s_{n-1}) = \limn s_n - \limn s_{n-1} = s - s = 0,
+  \end{equation}
+  and we completes the proof.
+\end{proof}
+
+\begin{theorem}[Direct comparison test]
+  Let $\exists N: \forall n \ge N, b_n \ge a_n > 0$. If $\ser b_n$ converges, then
+  $\ser a_n$ convereges.
+  \label{thm:ser_test_comp}
+\end{theorem}
+\begin{proof}
+  Let $S_n = \sum_{i=1}^n a_i$, and $\ser b_n = \beta$. Then
+  \begin{equation}
+    \sumi{n} a_i \le \sumi{n} a_i + \sumi{n} b_n \le \sumi{n} a_i + \ser b_n = S_n + \beta.
+  \end{equation}
+  So, $S_n$ is upper bound. By MCT, $S_n$ converges. We completes the proof.
+\end{proof}
+
+\begin{theorem}[Limit comparison test]
+  Let $\forall n, a_n, b_n > 0$ and $0 < c < \infty$.
+  \begin{itemize}
+    \item If $\limn \frac{a_n}{b_n} = c$, then $\ser a_n$ and $\ser b_n$ either
+          both converge or diverge.
+    \item If $\limn \frac{a_n}{b_n} = 0$ and $\ser b_n$ converges, then $\ser
+            a_n$ converges.
+    \item If $\limn \frac{a_n}{b_n} = \infty$ and $\ser b_n$ diverges, then
+          $\ser a_n$ diverges.
+  \end{itemize}
+  \label{thm:ser_test_lim}
+\end{theorem}
+\begin{proof}
+  Since $\limn \frac{a_n}{b_n} = c$,
+  \begin{equation}
+    \abs{\frac{a_n}{b_n} - c} < \frac{c}{2}.
+  \end{equation}
+  It follow that
+  \begin{equation}
+    -\frac{c}{2} < \frac{a_n}{b_n} - c < \frac{c}{2}
+    \implies \frac{c}{2} \cdot b_n < a_n < \frac{3c}{2} \cdot b_n
+    \implies \sumi{n} \frac{c}{2} \cdot b_n < \sumi{n} a_n < \sumi{n} \frac{3c}{2} \cdot b_n.
+  \end{equation}
+  By comparison test, $\ser a_n$ converges if $\ser b_n$ converges. If $\ser
+    b_n$ diverges, then clearly $\ser a_n$ diverges. We completes the proof.
+\end{proof}
+
+\begin{theorem}[Integral test]
+  Let $f$ is monotone decreasing and $f(x) \ge 0$ on $[N, \infty)$ for some $N
+    \in \NN$. Then $\int_N^{\infty} f(x)$ and $\ser f(n)$ are either both converge
+  or diverge.
+  \label{thm:ser_test_int}
+\end{theorem}
+\begin{proof}
+  Let $K \ge N$. Then $\exists x \in \RR: K \le x < K + 1$. Since $f$ is
+  monotone decreasing, $f(k) \ge f(x) \ge f(k+1)$. It follows that
+  \begin{equation}
+    \begin{split}
+      &f(k) = \int_k^{k+1} f(k)\,dx \ge \int_k^{k+1}f(x)\,dx \ge \int_k^{k+1}f(k+1)\,dx = f(k+1).  \\
+      &\implies \sum_{K=N}^n a_{k+1} \le \int_{N}^{n+1} f(x)\,dx \le \sum_{K=N}^n a_{k}.
+    \end{split}
+  \end{equation}
+  If $\int_{N}^{n+1} f(x)\,dx$ converges, then $\sum_{K=N}^n a_{k+1}$ conveges.
+  If $\int_{N}^{n+1} f(x)\,dx$ diverges, then $\sum_{K=N}^n a_{k}$ diverges. We
+  completes the proof.
+\end{proof}
+
+\begin{theorem}[p-series test]
+  \begin{itemize}
+    \item If $p \le 1$, then $\ser \frac{1}{n^p}$ diverges.
+    \item If $p > 1$, then $\ser \frac{1}{n^p}$ converges.
+  \end{itemize}
+  \label{thm:ser_test_p}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
+
+
+\subsection{Alternating Series}
+
+\begin{definition}
+  Let $b_n > 0$. A series $\ser (-1)^nb_n$ is \emph{alternating seires}.
+  \label{def:ser_alt}
+\end{definition}
+
+\begin{theorem}[Alternating series test]
+  If $\forall n, b_n \ge b_{n+1}$ and $\limn b_n = 0$, then $\ser (-1)^n b_n$
+  converges.
+  \label{thm:ser_alt_conv}
+\end{theorem}
+\begin{proof}
+  Since $\forall n, b_n \ge b_{n+1}$, we have $\forall n, S_{2n} \ge S_{2n-2}$.
+  Note that $S_{2n} \le b_1$. By MCT, $S_{2n}$ converges. Let $\limn S_{2n} =
+    s$. Since $\limn b_n = 0$, we have $\limn S_{2n + 1} = \limn (S_{2n} +
+    b_{2n+1}) = \limn S_{2n} + \limn b_{2n+1} = s + 0 = 0$. we completes the proof.
+\end{proof}
+
+
+
+\subsection{Absolute Convergence and Conditional Convergence}
+
+\begin{definition}
+  A series $\ser a_n$ is \emph{absolute convergence}
+  if $\ser \abs{a_n}$ converges. $\ser a_n$ is \emph{conditional convergence} if
+  $\ser a_n$ converges but It is not absolute convergence.
+  \label{def:ser_abs}
+\end{definition}
+
+\begin{theorem}[Absolute convergence test]
+  If a series $\ser a_n$ is absolute convergence, then $\ser a_n$ converges.
+  \label{thm:ser_test_abs}
+\end{theorem}
+\begin{proof}
+  Note that $\forall n, a_n \le \abs{a_n}$. Then
+  \begin{equation}
+    a_n \le \abs{a_n} \implies a_n + \abs{a_n} \le 2\abs{a_n} \implies
+    \ser (a_n + \abs{a_n}) \le 2 \cdot \ser \abs{a_n}.
+  \end{equation}
+  Since $\ser \abs{a_n}$ converges, $\ser (a_n + \abs{a_n})$ converges.
+  Let $\ser (a_n + \abs{a_n}) = k$. Then
+  \begin{equation}
+    \ser a_n = \ser (a_n + \abs{a_n} - \abs{a_n}) = k - \ser \abs{a_n}.
+  \end{equation}
+  Since $\ser \abs{a_n}$ converges, $\ser a_n$ converges. We completes
+  the proof.
+\end{proof}
+
+\begin{theorem}[Ratio Test]
+  Let $a_n > 0$ and $\limn \frac{a_{n+1}}{a_n} = l > 0$.
+  \begin{itemize}
+    \item If $l < 1$, then $\ser a_n$ converges.
+    \item If $l > 1$, then $\ser a_n$ diverges.
+  \end{itemize}
+  \label{thm:ser_test_ratio}
+\end{theorem}
+\begin{proof}
+  노트보세요.
+\end{proof}
+
+\begin{theorem}
+  Let $a_n > 0$ and $\limn \sqrt[n]{a_n} = l > 0$.
+  \begin{itemize}
+    \item
+  \end{itemize}
+  \label{thm:ser_test_root}
+\end{theorem}
+
+\subsection{Exercises}
+\begin{itemize}
+  \item Show that $\ser \frac{1}{n}$ diverges. (This is a counter example of converse of theorem \ref{thm:ser_test_div}.)
+  \item Is $\ser \frac{n^2}{5n^2 + 4}$ diverges, or converges?
+  \item For $\abs{r} < 1$, $\ser r^n$ converges.
+  \item Find the sum of $\ser \brk{\frac{3}{n(n+1)} + \frac{1}{2^n}}$.
+  \item Is $\ser \frac{n}{3^n}$ converges?
+  \item Is $\ser \frac{5n^3-3n}{n^2(n-2)(n^2+5)}$ converges?
+  \item Is $\ser \frac{1}{n}$ converges? (Use an integral test)
+  \item Is $\ser \frac{1 + \cos n}{4^n+2n^4}$ converges?
+  \item Is $\ser \frac{\sqrt{n}+4}{n^2}$ converges?
+  \item Is $\ser (-1)^{n-1}/n$ converges? (Hint: Let $b_n = 1/n$. Then $b_n$ is
+        decreasing. We can use alternating series test.)
+  \item $\ser \frac{(-1)^{n+1}n^2}{n^3+1}$ converges? (Hint: Let $f(x) =
+          \frac{x^2}{x^3+1}$. Then $f(x)$ is decreasing function by calculus)
+  \item Is $\ser \frac{\cos n}{n^2}$ converges? (Hint: Use an absolute test)
+  \item Let $\ser n(4x^2)^n$ converges. Find a bound of $x$. (Hint: Use a ratio test)
+  \item Is $\ser (-1)^n \frac{n^3}{3^n}$ converges? (\hint{Use a ratio test})
+  \item Is $\ser (\frac{n}{n+1})^n$ converges? (\hint{Use a root test})
+  \item Is $\ser \cos(\frac{\pi}{n})$ converges?
+  \item Let $a_n > 0$ and $\limn n a_n \neq 0$. Is $a_n$ converges? (\hint{Use a
+          limit comp test})
+  \item Is $\ser \frac{n^n}{n!}$ converges? (\hint{USE A RATIO TEST IF A
+          SEQUENCE HAVE FACTORIAL.})
+  \item Show that $\forall x, \sum_{n=0}^{\infty} \frac{x^n}{n!}$ converges and
+        $\forall x, \limn \frac{x^n}{n!} = 0$.
+\end{itemize}
+
+% 입실론 문제를 줄 때, 입실론을 고정시키고 극한값을 가지는 최소의 N을 구하라고 말할 것.
+% 입실론은 움직이면 안됨.
+% 예제 중심.
+
+%******************************************************************************%
+\newpage
+\section{Limit of a Function}
+
+\subsection{Limit Point}
+
+\begin{definition}
+  Let $c, \eps \in \RR, \eps > 0$. $(c-\eps, c+\eps)$ is a $\eps$-neighborhood
+  of $c$. we denote this as $N_{\eps}(c)$.
+  \label{def:neighbor}
+\end{definition}
+
+\begin{definition}
+  $N_{\eps}$ we denote this as $N_{\eps}(c)$.
+  \label{def:neighbor_delete}
+\end{definition}
+
+\begin{definition}
+
+  \label{def:limit_point}
+\end{definition}
+
+\begin{theorem}
+
+  \label{thm:}
+\end{theorem}
+
+
+
+
+\subsection{Continuous Function}
+
+\begin{definition}
+  
+  \label{def:continuous_function}
+\end{definition}
